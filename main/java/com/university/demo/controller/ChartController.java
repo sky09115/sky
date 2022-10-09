@@ -62,7 +62,9 @@ public class ChartController {
     private ProductService productService;
 
     @Autowired
-    private SparkUtils sparkUtils;
+    private SongService songService;
+//    @Autowired
+//    private SparkUtils sparkUtils;
 
     @GetMapping({"/map/search/{keyword}","/map/search/"})
     public ServerResponse search(@PathVariable(value = "keyword",required = false) String keyword  ) {
@@ -86,10 +88,10 @@ public class ChartController {
     @GetMapping("/panel")
     public ServerResponse panelData() {
         Map map = new HashMap();
-        map.put("users",userService.count());
-        map.put("logs",sparkUtils.count("tb_log"));
-        map.put("three",sparkUtils.count("goods_list"));
-        map.put("four",orderService.getAmountSum(5));
+        map.put("users", userService.count());
+        map.put("logs", logService.count());
+        map.put("three", songService.count());
+        map.put("four", orderService.getAmountSum(5));
 
 //        map.put("four",schoolService.count());
 //        map.put("schools",schoolService.count());
@@ -179,8 +181,8 @@ public class ChartController {
     @GetMapping("/basic")
     public ServerResponse basic() {
         Map map = new HashMap();
-        map.put("c1",sparkUtils.count("goods_list"));
-        map.put("c2",sparkUtils.count("tb_order"));
+//        map.put("c1",sparkUtils.count("goods_list"));
+//        map.put("c2",sparkUtils.count("tb_order"));
         map.put("c3",orderDao.getCount(1));
         map.put("c4",orderDao.getCount(3));
         map.put("c5",orderDao.getCount(4));

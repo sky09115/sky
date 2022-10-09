@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface LogDao extends BaseMapper<Log> {
 
-    @Select("select d from (select  distinct DATE_FORMAT(create_time,'%Y-%m-%d') as d   " +
+    @Select("select distinct d from (select  distinct DATE_FORMAT(create_time,'%Y-%m-%d') as d , create_time  " +
             "from  tb_log where opt = #{opt} order by create_time desc limit 15) as tt order by d")
     List<String> chart(String opt);
 

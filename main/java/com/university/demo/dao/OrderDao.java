@@ -84,7 +84,7 @@ public interface OrderDao extends BaseMapper<Order> {
             "where substr(create_time,6,2) = #{month} ")
     Integer getPriceByMonth(String month);
 
-    @Select("select d from (select  distinct DATE_FORMAT(create_time,'%Y-%m-%d') as d   from  tb_order  " +
+    @Select("select distinct d from (select  distinct DATE_FORMAT(create_time,'%Y-%m-%d') as d , create_time  from  tb_order  " +
             " order by create_time desc limit 15) as tt order by d")
     List<String> orderDay();
 
