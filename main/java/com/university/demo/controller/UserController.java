@@ -261,6 +261,19 @@ public class UserController {
         return ResultGenerator.genFailResult(registerResult);
     }
 
+    @PostMapping("/register")
+    @ApiOperation(value = "用户注册", notes = "")
+    public ServerResponse register2(@RequestBody @Valid User mallUserRegisterParam) {
+        String registerResult = apiLoginService.register(mallUserRegisterParam);
+        //注册成功
+        if (ServiceResultEnum.SUCCESS.getResult().equals(registerResult)) {
+            // 把电话也邮箱也更新一下
+            return ServerResponse.ofSuccess("注册成功");
+        }
+        //注册失败
+        return ServerResponse.ofError("注册失败");
+    }
+
     @GetMapping("/dev")
     public ServerResponse dev() {
         return ServerResponse.ofError("15:07.......!");
