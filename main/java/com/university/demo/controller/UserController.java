@@ -8,7 +8,9 @@ import com.university.demo.controller.api.service.ApiLoginService;
 import com.university.demo.controller.api.util.Result;
 import com.university.demo.controller.api.util.ResultGenerator;
 import com.university.demo.dao.SmsCodeDao;
+import com.university.demo.dao.UserDao;
 import com.university.demo.entity.SmsCode;
+import com.university.demo.entity.Song;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.ServiceResultEnum;
 import com.university.demo.entity.system.SysConstant;
@@ -20,6 +22,7 @@ import com.university.demo.entity.request.PasswordVO;
 import com.university.demo.entity.request.SearchRequest;
 import com.university.demo.entity.request.UserLoginRequest;
 import com.university.demo.service.PassLogService;
+import com.university.demo.service.SongService;
 import com.university.demo.service.UserService;
 import com.university.demo.service.impl.TokenService;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +32,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +56,12 @@ public class UserController {
 
     @Autowired
     private SmsCodeDao dao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private SongService songService;
 
     //@SysLog("测试")
     @PostMapping("/login")
@@ -269,8 +280,18 @@ public class UserController {
         return ServerResponse.ofSuccess("认证成功");
     }
 
-    //购物车
-
+    //用户历史列表
+    @GetMapping ("/history/all")
+    public ServerResponse recordByPage(@RequestParam(defaultValue = "1") Integer uid) {
+        String histories_str = userDao.getHistoryAll(uid);
+        String [] histories = histories_str.split(",");
+        List<Song> songList = new ArrayList<>();
+        for(int x=0; x<6 ; x++){
+            Song song = songService.getById(histories[x]);
+            songList.add(song);
+        }
+        return ServerResponse.ofSuccess(songList);
+    }
 
 }
 

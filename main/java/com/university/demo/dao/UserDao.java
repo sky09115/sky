@@ -16,6 +16,6 @@ public interface UserDao extends BaseMapper<User> {
 
     @Select("select count(1)  from  tb_user")
     Integer getUsersCount();
-
-
+    @Select("select iid   from tb_history  where uid = #{uid}")
+    String getHistoryAll(Integer uid);
 }

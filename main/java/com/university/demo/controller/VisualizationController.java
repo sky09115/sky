@@ -2,7 +2,11 @@ package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.dao.VisDao;
+import com.university.demo.entity.News;
 import com.university.demo.entity.Product;
 import com.university.demo.entity.ProductVo;
 import com.university.demo.entity.Song;
@@ -11,6 +15,7 @@ import com.university.demo.entity.response.ChartData;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.python.TransferPython.ToPython;
 import com.university.demo.service.SongService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -145,5 +150,21 @@ public class VisualizationController {
     }
     // 推荐算法3    ****************************
 
+
+    // 数据分页接口
+    @GetMapping ("/recordByPage")
+    public ServerResponse recordByPage(@RequestParam(defaultValue = "1") Integer page,
+                                       @RequestParam(defaultValue = "10") Integer limit,
+                                       @RequestParam(defaultValue = "") String keyword) {
+        QueryWrapper<Song> wrapper = new QueryWrapper<>();
+        wrapper.like(!StringUtils.isEmpty(keyword), "songName", keyword);
+        Page<Song> pages = new Page<>(page, limit);
+        IPage<Song> iPage = songService.page(pages, wrapper);
+
+        Map map = new HashMap();
+        map.put("data", iPage.getRecords());
+        map.put("pages", iPage.getPages());
+        return ServerResponse.ofSuccess(map);
+    }
 }
 
