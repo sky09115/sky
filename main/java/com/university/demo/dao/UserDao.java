@@ -18,4 +18,7 @@ public interface UserDao extends BaseMapper<User> {
     Integer getUsersCount();
     @Select("select iid   from tb_history  where uid = #{uid}")
     String getHistoryAll(Integer uid);
+
+    @Select("update tb_history set iid = #{iid_str} where uid = #{uid}")
+    void updateHistory(Integer uid, String iid_str);
 }

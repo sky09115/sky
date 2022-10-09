@@ -32,10 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author redcomet
@@ -282,7 +279,7 @@ public class UserController {
 
     //用户历史列表
     @GetMapping ("/history/all")
-    public ServerResponse recordByPage(@RequestParam(defaultValue = "1") Integer uid) {
+    public ServerResponse getHistory(@RequestParam(defaultValue = "1") Integer uid) {
         String histories_str = userDao.getHistoryAll(uid);
         String [] histories = histories_str.split(",");
         List<Song> songList = new ArrayList<>();
@@ -293,5 +290,32 @@ public class UserController {
         return ServerResponse.ofSuccess(songList);
     }
 
+    @GetMapping ("/history/add")
+    public ServerResponse addHistory(@RequestParam(defaultValue = "1") Integer uid,
+                                     @RequestParam(defaultValue = "1") Integer iid) {
+        String histories_str = userDao.getHistoryAll(uid);
+        String [] histories = histories_str.split(",");
+        List<String> hisList = new ArrayList<>();
+        List<String> oHisList =  Arrays.asList(histories);
+        for (String s : oHisList) {
+            hisList.add(s);
+        }
+
+//        System.out.println(iid);
+//        System.out.println(Integer.valueOf(hisList.get(0)));
+
+        if(iid.equals(Integer.valueOf(hisList.get(0)))){
+
+            return ServerResponse.ofSuccess("无更新");
+        }else{
+            hisList.remove(5);
+            hisList.remove(4);
+            hisList.add(0, String.valueOf(iid));
+            hisList.add(5, "1");
+            userDao.updateHistory(uid, String.join(",", hisList));
+            return ServerResponse.ofSuccess("无更新");
+        }
+
+    }
 }
 
