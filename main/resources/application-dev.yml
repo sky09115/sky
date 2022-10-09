@@ -1,0 +1,53 @@
+# 数据库连接
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/27music?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    #password: Duanlede123!
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # 返回json的全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 热部署配置
+  devtools:
+    restart:
+      enable: false
+      additional-paths: src/main/java
+      exclude: WEB-INF/**
+      poll-interval: 20s
+      quiet-period: 10s
+
+  #设置文件传输大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/xml/*Mapper.xml
+  typeAliasesPackage: com.university.demo.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1 #删除
+      logic-not-delete-value: 0 #不删除
+
+server:
+  port: 8080
+
+file:
+  upload-dir: /Volumes/tesla/upload  #
+  # FileController 中有个路径也要改成gonghui，就可以对应上
+
+config:
+  #  pythonscript
+  python-script-path: /Users/teslatk/Desktop/java/01MUSIC/01-Music-Server/src/main/java/com/university/demo/python/pythonscript/
+  #  python3
+  python-order: /Users/teslatk/.conda/envs/Belt-Flask/bin/python
+  # utf-8
+  charset-name: gbk

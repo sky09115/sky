@@ -1,0 +1,74 @@
+/**
+ * @author SargerasWang
+ */
+package com.university.excelUtil;
+
+import com.sargeraswang.util.ExcelUtil.ExcelLogs;
+import com.sargeraswang.util.ExcelUtil.ExcelUtil;
+import com.university.demo.entity.User;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Map;
+
+/**
+ * 测试导入Excel 97/2003
+ */
+public class TestImportExcel {
+
+  @Test
+  public void importXls() throws FileNotFoundException {
+    File f=new File("src/test/resources/test.xls");
+    InputStream inputStream= new FileInputStream(f);
+    
+    ExcelLogs logs =new ExcelLogs();
+    Collection<Map> importExcel = ExcelUtil.importExcel(Map.class, inputStream, "yyyy/MM/dd HH:mm:ss", logs , 0);
+    
+    for(Map m : importExcel){
+      System.out.println(m);
+    }
+  }
+
+  @Test
+  public void importXlsx() throws FileNotFoundException {
+    File f=new File("src/test/resources/test.xlsx");
+    InputStream inputStream= new FileInputStream(f);
+
+    ExcelLogs logs =new ExcelLogs();
+    Collection<Map> importExcel = ExcelUtil.importExcel(Map.class, inputStream, "yyyy/MM/dd HH:mm:ss", logs , 0);
+
+    for(Map m : importExcel){
+      System.out.println(m);
+    }
+  }
+
+  @Test
+  public void importXlsxModel() throws FileNotFoundException {
+    File f=new File("src/test/resources/test.xlsx");
+    InputStream inputStream= new FileInputStream(f);
+
+    ExcelLogs logs =new ExcelLogs();
+    Collection<MyModel> importExcel = ExcelUtil.importExcel(MyModel.class, inputStream, "yyyy/MM/dd HH:mm:ss", logs , 0);
+
+    for(MyModel m : importExcel){
+      System.out.println(m);
+    }
+  }
+
+  @Test
+  public void importUserXlsxFile() throws FileNotFoundException {
+    File f=new File("src/test/resources/用户名单 (5).xlsx");
+    InputStream inputStream= new FileInputStream(f);
+
+    ExcelLogs logs =new ExcelLogs();
+    Collection<User> importExcel = ExcelUtil.importExcel(User.class, inputStream, "yyyy/MM/dd HH:mm:ss", logs , 0);
+
+    for(User m : importExcel){
+      System.out.println(m);
+    }
+  }
+}
