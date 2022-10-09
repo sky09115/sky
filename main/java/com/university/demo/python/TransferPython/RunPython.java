@@ -16,7 +16,7 @@ public class RunPython {
     private  String pythonOrder;
     // 调用python脚本后返回字符集名
     @Value("${config.charset-name}")
-    private  String charsetName = "gbk";
+    private  String charsetName = "utf-8";
 
     //运行python代码,传递一个参数
     public  String runPython(String contents, String path) {

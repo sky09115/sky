@@ -50,4 +50,4 @@ config:
   #  python3
   python-order: /Users/teslatk/.conda/envs/Belt-Flask/bin/python
   # utf-8
-  charset-name: gbk
+  charset-name: utf-8

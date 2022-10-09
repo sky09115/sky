@@ -14,8 +14,8 @@ from tool import db
 class ItemBasedCF():
     # 初始化参数
     def __init__(self):
-        self.n_sim_movie = 14
-        self.n_rec_movie = 7
+        self.n_sim_movie = 8
+        self.n_rec_movie = 4
 
         self.trainSet = {}
         self.testSet = {}

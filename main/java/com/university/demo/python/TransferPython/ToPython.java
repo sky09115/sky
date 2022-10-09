@@ -23,8 +23,18 @@ public class ToPython {
         return runPython.runPython(contents, path);
     }
 
+    public String wordcloud2(String contents) {
+        String path = pythonScriptPath + "wordcloud2.py";
+        return runPython.runPython(contents, path);
+    }
+
     public String itemrec(String contents) {
         String path = pythonScriptPath + "rec.py";
+        return runPython.runPython(contents, path);
+    }
+
+    public String userrec(String contents) {
+        String path = pythonScriptPath + "UserCF.py";
         return runPython.runPython(contents, path);
     }
 

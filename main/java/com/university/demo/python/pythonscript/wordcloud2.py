@@ -5,7 +5,7 @@ import sys
 import jieba
 import jieba.analyse
 
-from comment import Comment
+from lyric import Lyric
 from tool import db
 
 
@@ -14,12 +14,12 @@ from tool import db
 """
 # tf-idf 关键词
 def PythonFunc2():
-    records = db.session.query(Comment).limit(3000).all()
+    records = db.session.query(Lyric).limit(1000).all()
     text = ""
     for i in records:
         # print(i.intro)  # 每一行
-        if i.content is not None:   #需要修改词云分词的字段
-            text = text + i.content
+        if i.lyric is not None:   #需要修改词云分词的字段
+            text = text + i.lyric
             # print(text)
 
     result = jieba.analyse.extract_tags(text, topK=200, withWeight=True,
