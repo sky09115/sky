@@ -36,7 +36,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/data/**").addResourceLocations("classpath:/data/");
-        registry.addResourceHandler("/downloadFile/**").addResourceLocations("file:/uploads/");
+        registry.addResourceHandler("/downloadFile/**").addResourceLocations("file:/Volumes/tesla/upload/");
 //        registry.addResourceHandler("/downloadFile/**").addResourceLocations("file:G:/uploads/");
     }
 

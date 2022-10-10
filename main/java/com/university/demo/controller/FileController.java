@@ -39,7 +39,7 @@ public class FileController {
 
     AipImageSearch aipImageSearch = new AipImageSearch(APPConfig.APP_ID, APPConfig.API_KEY, APPConfig.SECRET_KEY);
 
-    private final String FILE_ROOT = "model/";
+    private final String FILE_ROOT = "modelX/";
 
     @Autowired
     private FileService fileService;

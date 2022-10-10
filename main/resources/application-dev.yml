@@ -41,7 +41,7 @@ server:
   port: 8080
 
 file:
-  upload-dir: /Volumes/tesla/upload  #
+  upload-dir: /Volumes/tesla/upload/modelX  #
   # FileController 中有个路径也要改成gonghui，就可以对应上
 
 config:

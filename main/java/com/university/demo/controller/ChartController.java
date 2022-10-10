@@ -63,6 +63,9 @@ public class ChartController {
 
     @Autowired
     private SongService songService;
+
+    @Autowired
+    private AlbumService albumService;
 //    @Autowired
 //    private SparkUtils sparkUtils;
 
@@ -91,7 +94,7 @@ public class ChartController {
         map.put("users", userService.count());
         map.put("logs", logService.count());
         map.put("three", songService.count());
-        map.put("four", orderService.getAmountSum(5));
+        map.put("four", albumService.count());
 
 //        map.put("four",schoolService.count());
 //        map.put("schools",schoolService.count());

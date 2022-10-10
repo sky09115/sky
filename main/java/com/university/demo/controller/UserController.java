@@ -139,7 +139,7 @@ public class UserController {
     public ServerResponse queryUsers(@PathVariable("page") Integer page,
                                        @RequestParam(defaultValue = "10") Integer limit) {
         Page<User> pages = new Page<>(page, limit);
-        QueryWrapper<User> wrapper = new QueryWrapper<User>().eq("deleted",false).eq("user_type",true);
+        QueryWrapper<User> wrapper = new QueryWrapper<User>().eq("deleted",false);
         IPage<User> iPage = userService.page(pages, wrapper);
         return ServerResponse.ofSuccess(iPage);
     }
