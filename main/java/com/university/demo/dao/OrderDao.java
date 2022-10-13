@@ -95,43 +95,52 @@ public interface OrderDao extends BaseMapper<Order> {
     List<ChartData> getBook();
 
 
-    @Select(" select  bcat_name as name, avg(price) as value  " +
-            "from  goods_list g, bcat_list b " +
-            "where g.bcat_id = b.bcat_id  group by bcat_name ")
+    @Select(" select name, cast(commentCount as signed) as value from tb_album" +
+            " where type = '专辑' order by cast(commentCount as signed) desc limit 20 ")
     List<ChartData> getSellers();
 
-    @Select("   select  gcat_name as name, avg(price) as value  from  goods_list g, gcat_list b " +
-            "where g.gcat_id = b.gcat_id  group by gcat_name  limit 15")
+
+    @Select(" select name, cast(shareCount as signed) as value from tb_album" +
+            " where type = '专辑' order by cast(shareCount as signed) desc limit 20 ")
     List<ChartData> getHotRank();
 
-    @Select("   select goods_name as name, price as value from goods_list limit 5  ")
+    @Select("   select artistName as name, musicSize as value from tb_artist2 order by musicSize desc limit 5  ")
     List<ChartData> getIndustryFields();
 
 
-    @Select(" select  goods_name as name ,price as value from  goods_list  where gcat_id = 2 limit 15 ")
+    @Select("  select  artistName as name , sum(musicSize) as value from  tb_artist2 " +
+            " where indentities like '%歌手%' and  artistName " +
+            " not in ('群星', 'Various Artists','V.A.') " +
+            "group by artistName order by sum(musicSize) desc limit 15 ")
     List<ChartData> getProvinceRank();
 
-    @Select(" select  goods_name as name ,price as value from  goods_list  where gcat_id = 1 limit 15 ")
+    @Select("  select  artistName as name , sum(musicSize) as value from  tb_artist2 " +
+            " where indentities like '%编曲%' and  artistName " +
+            " not in ('群星', 'Various Artists','V.A.') " +
+            "group by artistName order by sum(musicSize) desc limit 15 ")
     List<ChartData> getCityRank();
 
-    @Select(" select  goods_name as name ,price as value from  goods_list  where gcat_id = 3 limit 15 ")
+    @Select("  select  artistName as name , sum(musicSize) as value from  tb_artist2 " +
+           " where indentities like '%作词%' and  artistName " +
+           " not in ('群星', 'Various Artists','V.A.') " +
+            "group by artistName order by sum(musicSize) desc limit 15 ")
     List<ChartData> getDistrictRank();
 
 
 
-    @Select("select  sum(o.price)  from  tb_order_detail o, goods_list g" +
-            " where o.goods_id = g.goods_id and g.gcat_id = 2" +
-            " and year(create_time) = #{year} and month(create_time) = #{month}")
+    @Select("select  sum(o.amount)  from  tb_order o" +
+            " where " +
+            "  year(create_time) = #{year} and month(create_time) = #{month}")
     Double getCarsByMonth(String year, String month);
 
-    @Select("select  sum(o.price)  from  tb_order_detail o, goods_list g" +
-            " where o.goods_id = g.goods_id and g.gcat_id = 1" +
-            " and year(create_time) = #{year} and month(create_time) = #{month}")
+    @Select("select  sum(o.amount)  from  tb_order o" +
+            " where " +
+            "  year(create_time) = #{year} and month(create_time) = #{month}")
     Double getTicketsByMonth(String year, String month);
 
-    @Select("select  sum(o.price)  from  tb_order_detail o, goods_list g" +
-            " where o.goods_id = g.goods_id and g.gcat_id = 3" +
-            " and year(create_time) = #{year} and month(create_time) = #{month}")
+    @Select("select  sum(o.amount)  from  tb_order o " +
+            " where " +
+            "  year(create_time) = #{year} and month(create_time) = #{month}")
     Double getInsuresByMonth(String year, String month);
 
     @Select("select sum(amount)  from  tb_order")
