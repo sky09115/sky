@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.dao.OrderDao;
 import com.university.demo.dao.ProductDao;
+import com.university.demo.dao.UserDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
 import com.university.demo.entity.MapData;
@@ -66,8 +67,9 @@ public class ChartController {
 
     @Autowired
     private AlbumService albumService;
-//    @Autowired
-//    private SparkUtils sparkUtils;
+
+    @Autowired
+    private UserDao userDao;
 
     @GetMapping({"/map/search/{keyword}","/map/search/"})
     public ServerResponse search(@PathVariable(value = "keyword",required = false) String keyword  ) {
@@ -118,8 +120,29 @@ public class ChartController {
         return ServerResponse.ofSuccess(map);
     }
 
+    @GetMapping("/userAddr")
+    public ServerResponse userAddr() throws ParseException {
+        Map map = new HashMap();
+        map.put("userAddr",userDao.getUserAddr());
+        return ServerResponse.ofSuccess(map);
+    }
 
+    @GetMapping("/userAddrSex")
+    public ServerResponse userAddrSex() throws ParseException {
+        Map map = new HashMap();
+        map.put("userAddr",userDao.getUserAddr());
+        List<Integer> males = new ArrayList<>();
+        List<Integer> females = new ArrayList<>();
+        userDao.getUserAddr().forEach(i->{
+            String addr = i.getName();
+            males.add(userDao.getUserAddrSex("M", addr));
+            females.add(userDao.getUserAddrSex("F", addr));
+        });
 
+        map.put("male",males);
+        map.put("female",females);
+        return ServerResponse.ofSuccess(map);
+    }
     /* 大屏数据 */
     // 评论和点赞 双柱图
     @GetMapping("/commentnThumbData")

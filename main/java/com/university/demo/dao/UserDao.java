@@ -21,4 +21,11 @@ public interface UserDao extends BaseMapper<User> {
 
     @Select("update tb_history set iid = #{iid_str} where uid = #{uid}")
     void updateHistory(Integer uid, String iid_str);
+
+    @Select("select addr as name, count(*) as value from  tb_user group by addr")
+    List<ChartData> getUserAddr();
+
+    @Select("select  count(*)  from  tb_user where gender =#{gender} and addr = #{addr}")
+    Integer getUserAddrSex(String gender, String addr);
+
 }
