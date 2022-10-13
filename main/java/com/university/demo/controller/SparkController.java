@@ -12,8 +12,7 @@ import com.university.demo.entity.response.ThreeData;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
-import com.university.demo.service.LogService;
-import com.university.demo.service.OrderService;
+import com.university.demo.service.*;
 import com.university.demo.util.spark.SparkUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,14 @@ public class SparkController {
     private OrderService orderService;
 
     @Autowired
+    private SongService songService;
+
+    @Autowired
+    private AlbumService albumService;
+
+    @Autowired
+    private ArtistService artistService;
+    @Autowired
     private NewsDao newsDao;
 
     @Autowired
@@ -67,6 +74,11 @@ public class SparkController {
         map.put("orders", orderDao.selectCount(null));
 //        map.put("shops", sparkUtils.count("bcat_list"));
 //        map.put("cates", sparkUtils.count("gcat_list"));
+        //map.put("goods", sparkUtils.count("gcat_list"));
+        map.put("shops", albumService.count(null));
+        map.put("cates", artistService.count(null));
+        map.put("goods", songService.count(null));
+
 //        map.put("test_user", sparkUtils.count("tb_user"));
         map.put("orderSum", orderDao.getOrderSum());
 
