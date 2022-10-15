@@ -114,7 +114,8 @@ public class User extends Model<User> {
 
     private String vip;
 
-    private String vip_date;
+//    @TableField(value = "vip_date")
+    private String vipDate;
 
 //    private String provinceName;
 //    private String provinceId;

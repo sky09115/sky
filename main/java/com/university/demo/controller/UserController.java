@@ -286,6 +286,7 @@ public class UserController {
     public ServerResponse idconfirm(@RequestBody User user) {
         User u = userService.getById(user);
         u.setIdno(user.getIdno());
+        u.setRealname(user.getRealname());
         userService.updateById(u);
         // 更新密码
         return ServerResponse.ofSuccess("认证成功");

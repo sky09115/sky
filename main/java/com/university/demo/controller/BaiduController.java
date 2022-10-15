@@ -133,7 +133,11 @@ public class BaiduController {
         String fileName = fileService.storeFile(file);;
         String id_card_side = "front";
         HashMap<String, String> options = new HashMap<String, String>();
-        String realFile = fileService.getFileStorePath() + "\\" + fileName;
+        // windows
+//        String realFile = fileService.getFileStorePath() + "\\" + fileName;
+        // Macbook
+        String realFile = fileService.getFileStorePath() + "/" + fileName;
+
         byte[] data = Util.readFileByBytes(realFile);
 //        byte[] pic = getPic(realFile);
         String base64Content = Base64Util.encode(data);
@@ -149,7 +153,12 @@ public class BaiduController {
                 .toUriString();
         HashMap<String, String> re = new HashMap<String, String>();
         re.put("fileDownloadUri",fileDownloadUri);
-        re.put("words",idno.getString("words"));
+        re.put("idno",idno.getString("words"));
+        re.put("name",words_result.getJSONObject("姓名").getString("words"));
+        re.put("nation",words_result.getJSONObject("民族").getString("words"));
+        re.put("addr",words_result.getJSONObject("住址").getString("words"));
+        re.put("birth",words_result.getJSONObject("出生").getString("words"));
+        re.put("sex",words_result.getJSONObject("性别").getString("words"));
 
         return ServerResponse.ofSuccess(re);
     }

@@ -30,13 +30,13 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationInterceptor())
                 .addPathPatterns("/**").excludePathPatterns("/data/**")
-        .excludePathPatterns("/downloadFile/**");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解决定是否需要登录
+        .excludePathPatterns("/download/**");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解决定是否需要登录
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/data/**").addResourceLocations("classpath:/data/");
-        registry.addResourceHandler("/downloadFile/**").addResourceLocations("file:/Volumes/tesla/upload/");
+        registry.addResourceHandler("/download/**").addResourceLocations("file:/Volumes/tesla/upload/");
 //        registry.addResourceHandler("/downloadFile/**").addResourceLocations("file:G:/uploads/");
     }
 
