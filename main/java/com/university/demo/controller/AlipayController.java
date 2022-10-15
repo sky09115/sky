@@ -11,30 +11,37 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.anotation.SysLog;
 import com.university.demo.dao.OrderDetailDao;
-import com.university.demo.entity.*;
-import com.university.demo.entity.response.NewsVo;
-import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.dao.UserDao;
+import com.university.demo.entity.Order;
+import com.university.demo.entity.OrderDetail;
+import com.university.demo.entity.OrderForm;
+import com.university.demo.entity.User;
 import com.university.demo.entity.request.SearchRequest;
 import com.university.demo.entity.response.OrderVo;
+import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
-import com.university.demo.entity.vo.OrderVox;
-import com.university.demo.service.*;
+import com.university.demo.service.CartService;
+import com.university.demo.service.GroupService;
+import com.university.demo.service.OrderService;
+import com.university.demo.service.UserService;
 import com.university.demo.util.Alipay.AliPayConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @author redcomet
- * @since 2021-10-22
+ * @author tesla
+ * @since 2022年10月15日
  */
 @RestController
-@RequestMapping("/order")
-public class OrderController {
+@RequestMapping("/alipay")
+public class AlipayController {
 
     @Autowired
     private OrderService service;
@@ -58,123 +65,6 @@ public class OrderController {
 
     @Autowired
     private CartService cartService;
-
-    @PostMapping("/modify")
-    public ServerResponse modify(@RequestBody Order record) {
-        service.updateDetail(record.getId(), record.getStatus());
-        return service.updateById(record) ? ServerResponse.ofSuccess("更新成功！") : ServerResponse.ofError("更新失败！");
-    }
-
-    @GetMapping("/delete/{id}")
-    public ServerResponse delete(@PathVariable("id") String id) {
-        return service.removeById(id) ? ServerResponse.ofSuccess("删除成功！") : ServerResponse.ofError("删除失败！");
-    }
-
-    @GetMapping("/{id}")
-    public ServerResponse query(@PathVariable("id") String id) {
-        return ServerResponse.ofSuccess(service.getById(id));
-    }
-
-    @GetMapping("/orders/{page}")
-    public ServerResponse querys(@PathVariable("page") Integer page,
-                                 @RequestParam(defaultValue = "10") Integer limit,
-                                 @RequestParam(defaultValue = "") String type) {
-        Page<OrderVo> pages = new Page<>(page, limit);
-        IPage<OrderVo> iPage  = service.selectAllPage(pages, "", type);
-        return ServerResponse.ofSuccess(iPage);
-    }
-
-    @PostMapping("/search")
-    public ServerResponse search(@RequestBody SearchRequest query,
-                                 @RequestParam(defaultValue = "1") Integer page,
-                                 @RequestParam(defaultValue = "10") Integer limit,
-                                 @RequestParam(defaultValue = "") String type) {
-        Page<OrderVo> pages = new Page<>(page, limit);
-        IPage<OrderVo> iPage  = service.selectPage(pages, query.getKeyword(),query.getGroup(), type);
-        if (page != null) {
-            return ServerResponse.ofSuccess(iPage);
-        }
-        return ServerResponse.ofError("查询不到数据!");
-    }
-
-
-    @PostMapping("/add")
-    @SysLog(value= SysConstant.RESERVE)
-    public ServerResponse add(@RequestBody Order record) {
-        boolean b = service.save(record);
-        if (b) {
-            // 处理订单明细 Begin
-            System.out.println("orderId:"+ record.getId());   // 自动回填
-            return ServerResponse.ofSuccess("添加成功", record.getId());
-        }
-        return ServerResponse.ofError("添加失败!");
-    }
-
-    /**
-     *  OrderVox 中带有订单明细， 如果没有这个内容，直接使用Order类
-     */
-//    @PostMapping("/add")
-//    @SysLog(value= SysConstant.RESERVE)
-//    public ServerResponse add(@RequestBody OrderVox record) {
-//        Integer userId = record.getUserId();
-//        User user = userService.getById(userId);
-//        record.setPhone(user.getPhone());
-//        record.setGroupId(user.getGroupId());
-//        boolean b = service.save(record);
-//        if (b) {
-//            // 处理订单明细 Begin
-//            System.out.println("orderId:"+ record.getId());   // 自动回填
-//            List<Cart> products = record.getProducts();
-//            products.forEach(p->{
-//                OrderDetail od = new OrderDetail();
-//                od.setOid(record.getId());
-//                od.setGoodsLogo(p.getGoodsLogo());
-//                od.setGoodsName(p.getGoodsName());
-//                od.setNum(p.getNum());
-//                od.setPrice(p.getPrice());
-//                od.setUid(p.getUserId());
-//                od.setGoodsId(p.getGoodsId());
-//                od.setStatus(Order.STAT_NOT_PAY);
-//                orderDetailDao.insert(od);
-//
-//                // 处理购物车
-//                cartService.removeById(p);
-//            });
-////            System.out.println(products);
-//            // 处理订单明细 end
-//
-//            // 处理购物车 begin
-//
-//            // 处理购物车 end
-//            return ServerResponse.ofSuccess("添加成功", record);
-//        }
-//        return ServerResponse.ofError("添加失败!");
-//    }
-
-    /* 给前端用的 */
-    @GetMapping({"/fontsearch/{userId}"})
-    public ServerResponse fontsearch(@PathVariable(value = "userId",required = false) Integer userId, @RequestParam(defaultValue = "1") Integer page,
-                                     @RequestParam(defaultValue = "50") Integer limit,
-                                     @RequestParam(defaultValue = "") String type) {
-        Page<OrderVo> pages = new Page<>(page, limit);
-        IPage<OrderVo> iPage = service.selectAllPage2(pages, userId, type);
-
-        List<OrderVo> orders = iPage.getRecords();
-        orders.forEach(order->{
-            List<OrderDetail> details = null;
-            QueryWrapper<OrderDetail> wrapper2 = new QueryWrapper<>();
-            wrapper2.eq("oid", order.getId());
-            details = orderDetailDao.selectList(wrapper2);
-            order.setDetails(details);
-        });
-
-        iPage.setRecords(orders);
-        if (page != null) {
-            return ServerResponse.ofSuccess(iPage);
-        }
-        return ServerResponse.ofError("查询不到数据!");
-    }
-
 
     /************************ [   alipay   ]***************************************/
 
@@ -224,10 +114,10 @@ public class OrderController {
     }
 
     /* 支付接口 */
-    @PostMapping(value = "{orderid}/pay")
+    @PostMapping(value = "/pay")
     @ResponseBody
-    public void payOrder(@PathVariable(value = "orderid") String orderid, HttpServletResponse response) {
-        Order order = service.getById(orderid);
+    public void payOrder(@RequestBody OrderForm orderForm, HttpServletResponse response) {
+        Order order = service.getById(orderForm.getOrderId());
 
         //调用支付宝的页面
         // 1、设置请求参数
@@ -241,7 +131,7 @@ public class OrderController {
         Map<String,String> map = new HashMap<>(16);
         map.put("out_trade_no", order.getId());
         map.put("total_amount", String.valueOf(order.getAmount()));
-        map.put("subject", " 订单");   //订单名称
+        map.put("subject", orderForm.getSubject());   //订单名称
         map.put("body", "购买测试");      //订单描述
         // 销售产品码
         map.put("product_code","FAST_INSTANT_TRADE_PAY");

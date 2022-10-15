@@ -20,8 +20,8 @@ public class AliPayConfig {
     private String alipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy4HYxErHOPLSPvgtO5/jC7DF9eHNUkZqhOmkQqpucvH9MyMiwkPXNYtJiV6XQ2GFWvogqWVch2QIPXV3uXMRG2WNWol7By+nR9ugeYPhvNHYNqK2Tq3liyluizUwV+5/SiuTRpz6MBR/GUtIpejCAK6/ZMw+caAV2KlOkoo51Zb/HRJDfZvFX6M/v2Rfjd/ut4jlW/zuuCMgymVKKJRudzRS4PoGT5hyJyM2bkD63dBjby/pduv4WgIzLhUIGSc8lvXVsf6k1jr9WJdiqEIMRlGgFzXebrDhRjygbbJbwzRgN2jQJKEZI1ZobJed+Yn6Kuh/9qaTcq4WTeuQTKzFGwIDAQAB";
     private String signType = "RSA2";
     private String sellerId = "2088102177227915";
-    private String notifyUrl = NAT_APP_URL + "/order/alipay/notify";
-    private String returnUrl = NAT_APP_URL + "/order/alipay/return";
+    private String notifyUrl = NAT_APP_URL + "/alipay/alipay/notify";
+    private String returnUrl = NAT_APP_URL + "/alipay/alipay/return";
 
     public String getGatewayUrl() {
         return gatewayUrl;
