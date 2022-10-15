@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -329,6 +330,31 @@ public class UserController {
             return ServerResponse.ofSuccess("无更新");
         }
 
+    }
+
+    @PostMapping("/modifypass")
+    public ServerResponse modifyPass(@RequestBody User passForm) throws IOException {
+//        try {
+//            QueryWrapper<SmsCode> queryWrapper = new QueryWrapper<>();
+//            queryWrapper.orderByDesc("expire_time");
+//            queryWrapper.eq("phone", smsCode.getPhone());
+//            SmsCode code = dao.selectList(queryWrapper).get(0);
+//            if(!code.getCode().equals(smsCode.getCode()))
+//                return ServerResponse.ofError("验证码不符!");
+//
+//        }catch (Exception e){
+//            return ServerResponse.ofError("验证码校验失败!");
+//        }
+
+        User user = userService.getById(passForm.getId());
+        user.setPassword(passForm.getPassword());
+
+        Boolean b = userService.updateById(user);
+
+        if (b) {
+            return ServerResponse.ofSuccess("修改密码成功");
+        }
+        return ServerResponse.ofError("修改密码失败!");
     }
 }
 

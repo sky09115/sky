@@ -112,6 +112,10 @@ public class User extends Model<User> {
 
     private Double bal; //钱包
 
+    private String vip;
+
+    private String vip_date;
+
 //    private String provinceName;
 //    private String provinceId;
 //

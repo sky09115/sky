@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author redcomet
@@ -47,6 +49,34 @@ public class SmsController {
         return ServerResponse.ofError("发送失败!");
     }
 
+    @PostMapping("/sendSms")
+    public ServerResponse sendSms(@RequestBody SmsCode smsCode) throws IOException {
+        String code = RandomUtil.generateDigitalString(6);
+        String phone = smsCode.getPhone();
+        Date now = new Date();
+        Date expireTime = new Date(now.getTime() + 1 * 1 * 3600 * 1000);//过期时间 1 小时
+        smsCode.setCode(code);
+        smsCode.setExpireTime(expireTime);
+
+        int b = dao.insert(smsCode);
+
+        if (b>0) {
+            Map<String, Object> map = new HashMap();
+//            map.put("msg","发送成功");
+            map.put("code", code);
+            SendSms.getMessageStatus(phone, code);
+            return ServerResponse.ofSuccess("发送成功", map);
+        }
+        return ServerResponse.ofError("发送失败!");
+    }
+
+    /**
+     * 根据新的前端做的修改密码新接口，覆盖了原方法
+     * @param uid
+     * @param smsCode
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/modifyPass/{uid}")
     public ServerResponse modifyPass(@PathVariable("uid") Integer uid,@RequestBody SmsCode smsCode) throws IOException {
         try {
