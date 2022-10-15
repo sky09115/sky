@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class AliPayConfig {
-    private String NAT_APP_URL = "http://xkviej.natappfree.cc";
+    private String NAT_APP_URL = "http://wa3eah.natappfree.cc";
 
     private String gatewayUrl = "https://openapi.alipaydev.com/gateway.do";
     private String appId = "2016092500594263";

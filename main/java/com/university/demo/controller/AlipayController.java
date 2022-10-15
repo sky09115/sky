@@ -30,10 +30,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author tesla
@@ -192,23 +190,36 @@ public class AlipayController {
                 String tradeNo = params.get("trade_no");
                 // 更新状态
                 service.pay(order.getUserId(),order.getId());
+                User user = userDao.selectById(order.getUserId());
 
                 //如果这个订单是11充值订单，则增加用户的余额
-                if("购买".equals(order.getType())){
-                    QueryWrapper<OrderDetail> wrapper = new QueryWrapper<>();
-                    wrapper.eq("oid", orderId);
-                    List<OrderDetail> orderDetailList = orderDetailDao.selectList(wrapper);
-                    orderDetailList.forEach(d->{
-                       d.setStatus(1);
-                       orderDetailDao.updateById(d);
-                    });
-                }else if("账户充值".equals(order.getType())){
+                if("充值".equals(order.getType())){
                     Double amount = order.getAmount();
-                    User user = userDao.selectById(order.getUserId());
                     Double oBal = user.getBal();
                     user.setBal(oBal + amount);
                     userDao.updateById(user);
-                }else if("购物".equals(order.getType())){
+                }else if("年度会员".equals(order.getType())){
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//                    String vipDate = user.getVipDate();
+                    Date vipDate = sf.parse(user.getVipDate());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(vipDate);
+                    c.add(Calendar.DATE, 365);//增加一年
+                    String newVipDate = sf.format(c.getTime());
+                    user.setVipDate(newVipDate);
+                    user.setVip("年度大会员");
+                    userDao.updateById(user);
+                }else if("月度会员".equals(order.getType())){
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//                    String vipDate = user.getVipDate();
+                    Date vipDate = sf.parse(user.getVipDate());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(vipDate);
+                    c.add(Calendar.DATE, 31);//增加一月
+                    String newVipDate = sf.format(c.getTime());
+                    user.setVipDate(newVipDate);
+                    user.setVip("月度会员");
+                    userDao.updateById(user);
                 }
                 // orderInfoService.changeStatus(orderId, "TRADE_SUCCESS", tradeNo);
 
