@@ -39,7 +39,7 @@ public class FileController {
 
     AipImageSearch aipImageSearch = new AipImageSearch(APPConfig.APP_ID, APPConfig.API_KEY, APPConfig.SECRET_KEY);
 
-    private final String FILE_ROOT = "modelX/";
+    private final String FILE_ROOT = "";
 
     @Autowired
     private FileService fileService;
@@ -48,7 +48,7 @@ public class FileController {
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file){
         String fileName = fileService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/" + FILE_ROOT)
+                .path("/download/" + FILE_ROOT)
                 .path(fileName)
                 .toUriString();
 
