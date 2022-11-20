@@ -6,17 +6,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.dao.VisDao;
-import com.university.demo.entity.News;
-import com.university.demo.entity.Product;
-import com.university.demo.entity.ProductVo;
-import com.university.demo.entity.Song;
-import com.university.demo.entity.request.SearchRequest;
 import com.university.demo.entity.response.ChartData;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.python.TransferPython.ToPython;
-import com.university.demo.service.SongService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +27,6 @@ import java.util.Map;
 @RequestMapping("/vis2")
 public class VisualizationController {
 
-    @Autowired
-    private SongService songService;
 
     @Autowired
     private VisDao dao;
@@ -108,63 +99,6 @@ public class VisualizationController {
         //转为json数据
         JSONObject jo = JSONObject.parseObject(content);
         return ServerResponse.ofSuccess(jo);
-    }
-
-
-
-    // 推荐算法1    ****************************
-    @GetMapping("/getItemCF")
-    public ServerResponse getItemCF(@RequestParam String userId) {
-        List<Song> records = new ArrayList();
-        String content = toPython.itemrec(userId);
-        //转为json数据
-        JSONArray jo = JSONObject.parseArray(content);
-        for(int i=0;i<jo.size();i++){
-            JSONObject  obj = jo.getJSONObject(i);
-            Song item = songService.getById(obj.getInteger("iid"));
-            records.add(item);
-        }
-
-        Map map = new HashMap();
-        map.put("datas", records);
-
-        return ServerResponse.ofSuccess(map);
-    }
-    // 推荐算法2    ****************************
-    @GetMapping ("/getUserCF")
-    public ServerResponse getUserCF(@RequestParam String userId) {
-        List<Song> records = new ArrayList();
-        String content = toPython.userrec(userId);
-        //转为json数据
-        JSONArray jo = JSONObject.parseArray(content);
-        for(int i=0;i<jo.size();i++){
-            JSONObject  obj = jo.getJSONObject(i);
-            Song item = songService.getById(obj.getInteger("iid"));
-            records.add(item);
-        }
-
-        Map map = new HashMap();
-        map.put("datas", records);
-
-        return ServerResponse.ofSuccess(map);
-    }
-    // 推荐算法3    ****************************
-
-
-    // 数据分页接口
-    @GetMapping ("/recordByPage")
-    public ServerResponse recordByPage(@RequestParam(defaultValue = "1") Integer page,
-                                       @RequestParam(defaultValue = "10") Integer limit,
-                                       @RequestParam(defaultValue = "") String keyword) {
-        QueryWrapper<Song> wrapper = new QueryWrapper<>();
-        wrapper.like(!StringUtils.isEmpty(keyword), "songName", keyword);
-        Page<Song> pages = new Page<>(page, limit);
-        IPage<Song> iPage = songService.page(pages, wrapper);
-
-        Map map = new HashMap();
-        map.put("data", iPage.getRecords());
-        map.put("pages", iPage.getPages());
-        return ServerResponse.ofSuccess(map);
     }
 
 

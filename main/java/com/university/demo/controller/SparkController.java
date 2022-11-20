@@ -2,18 +2,9 @@ package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.university.demo.dao.NewsDao;
-import com.university.demo.dao.OrderDao;
-import com.university.demo.dao.ProductDao;
-import com.university.demo.dao.UserDao;
-import com.university.demo.entity.News;
-import com.university.demo.entity.response.ChartData;
-import com.university.demo.entity.response.ThreeData;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
-import com.university.demo.service.*;
-import com.university.demo.util.spark.SparkUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,31 +21,9 @@ import java.util.Map;
 @RequestMapping("/spark")
 public class SparkController {
 
-    @Autowired
-    private OrderDao orderDao;
 
-    @Autowired
-    private UserDao userDao;
 
-    @Autowired
-    private LogService logService;
 
-    @Autowired
-    private OrderService orderService;
-
-    @Autowired
-    private SongService songService;
-
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private ArtistService artistService;
-    @Autowired
-    private NewsDao newsDao;
-
-    @Autowired
-    private ProductDao productDao;
 
 //    @Autowired
 //    SparkUtils sparkUtils;
@@ -70,17 +39,17 @@ public class SparkController {
         Map map = new HashMap();
 //        System.out.println(orderDao.selectCount(null));
 //        System.out.println( userDao.selectCount(null)*1.0);
-        map.put("users", userDao.getUsersCount());
-        map.put("orders", orderDao.selectCount(null));
+//        map.put("users", userDao.getUsersCount());
+//        map.put("orders", orderDao.selectCount(null));
 //        map.put("shops", sparkUtils.count("bcat_list"));
 //        map.put("cates", sparkUtils.count("gcat_list"));
         //map.put("goods", sparkUtils.count("gcat_list"));
-        map.put("shops", albumService.count(null));
-        map.put("cates", artistService.count(null));
-        map.put("goods", songService.count(null));
+//        map.put("shops", albumService.count(null));
+//        map.put("cates", artistService.count(null));
+//        map.put("goods", songService.count(null));
 
 //        map.put("test_user", sparkUtils.count("tb_user"));
-        map.put("orderSum", orderDao.getOrderSum());
+//        map.put("orderSum", orderDao.getOrderSum());
 
 
 //        map.put("books", orderDao.getBook());
@@ -107,23 +76,23 @@ public class SparkController {
     @RequestMapping(value = "/dash20", method = RequestMethod.GET)
     public ServerResponse Dash20() {
         Map map = new HashMap();
-        map.put("hotrank", orderDao.getHotRank());
+//        map.put("hotrank", orderDao.getHotRank());
         return ServerResponse.ofSuccess(map);
     }
 
     @RequestMapping(value = "/dash21", method = RequestMethod.GET)
     public ServerResponse dash21() {
         Map map = new HashMap();
-        map.put("rank", orderDao.getSellers());
+//        map.put("rank", orderDao.getSellers());
         return ServerResponse.ofSuccess(map);
     }
 
     @RequestMapping(value = "/dash22", method = RequestMethod.GET)
     public ServerResponse dash22() {
         Map map = new HashMap();
-        map.put("provinceRank", orderDao.getProvinceRank());
-        map.put("cityRank", orderDao.getCityRank());
-        map.put("districtRank", orderDao.getDistrictRank());
+//        map.put("provinceRank", orderDao.getProvinceRank());
+//        map.put("cityRank", orderDao.getCityRank());
+//        map.put("districtRank", orderDao.getDistrictRank());
         return ServerResponse.ofSuccess(map);
     }
 
@@ -131,7 +100,7 @@ public class SparkController {
     public ServerResponse Dash2() {
         Map map = new HashMap();
         // 通过日志汇总
-        map.put("deposit_rank", orderDao.getDepositRank());
+//        map.put("deposit_rank", orderDao.getDepositRank());
 
 //        map.put("financeStages", jobDao.getProvinceFinanceStages(10));
 //        map.put("provinceJobs", jobDao.getProvinceJobs(10));
@@ -186,7 +155,7 @@ public class SparkController {
     @RequestMapping(value = "/industryFields", method = RequestMethod.GET)
     public ServerResponse IndustryFields() throws ParseException {
         Map map = new HashMap();
-        map.put("industryFields", orderDao.getIndustryFields());
+//        map.put("industryFields", orderDao.getIndustryFields());
         return ServerResponse.ofSuccess(map);
     }
 
@@ -204,7 +173,7 @@ public class SparkController {
     public ServerResponse Playcnt() {
         Map map = new HashMap();
         // 通过日志汇总
-        map.put("playcnt_rank", newsDao.getRank());
+//        map.put("playcnt_rank", newsDao.getRank());
         return ServerResponse.ofSuccess(map);
     }
 
@@ -212,7 +181,7 @@ public class SparkController {
     public ServerResponse Provinces() {
         Map map = new HashMap();
         // 通过日志汇总
-        map.put("province_users", userDao.getProvinceUsers());
+//        map.put("province_users", userDao.getProvinceUsers());
 
         return ServerResponse.ofSuccess(map);
     }
@@ -221,8 +190,8 @@ public class SparkController {
     public ServerResponse orders() throws ParseException {
         Map map = new HashMap();
 
-        map.put("xData",orderService.chartDay());
-        map.put("orders",orderService.chartCount());
+//        map.put("xData",orderService.chartDay());
+//        map.put("orders",orderService.chartCount());
 
         return ServerResponse.ofSuccess(map);
     }
@@ -231,9 +200,9 @@ public class SparkController {
     public ServerResponse Logins() throws ParseException {
         Map map = new HashMap();
 
-        map.put("xData",logService.chartDay(SysConstant.LOGIN));
-        map.put("logins",logService.chartCount(SysConstant.LOGIN));
-        map.put("applogins",logService.chartCount(SysConstant.APP_LOGIN));
+//        map.put("xData",logService.chartDay(SysConstant.LOGIN));
+//        map.put("logins",logService.chartCount(SysConstant.LOGIN));
+//        map.put("applogins",logService.chartCount(SysConstant.APP_LOGIN));
 
         return ServerResponse.ofSuccess(map);
     }
@@ -241,8 +210,8 @@ public class SparkController {
     @RequestMapping(value = "/plays", method = RequestMethod.GET)
     public ServerResponse Plays() throws ParseException {
         Map map = new HashMap();
-        map.put("xData",logService.chartDay(SysConstant.RESERVE));
-        map.put("plays",logService.chartCount(SysConstant.RESERVE));
+//        map.put("xData",logService.chartDay(SysConstant.RESERVE));
+//        map.put("plays",logService.chartCount(SysConstant.RESERVE));
 
         return ServerResponse.ofSuccess(map);
     }
@@ -251,11 +220,11 @@ public class SparkController {
     public ServerResponse Top5songs() throws ParseException {
         Map map = new HashMap();
         List<String> songs = new ArrayList<>();
-        List<ThreeData> datas = newsDao.getTopRate();
-        for (ThreeData data : datas) {
-            News news = newsDao.selectById(data.getName1());
-            songs.add(news.getTitle());
-        }
+//        List<ThreeData> datas = newsDao.getTopRate();
+//        for (ThreeData data : datas) {
+//            News news = newsDao.selectById(data.getName1());
+//            songs.add(news.getTitle());
+//        }
 
         map.put("topsongs",songs);
         return ServerResponse.ofSuccess(map);
@@ -266,13 +235,13 @@ public class SparkController {
     public List<Double> getOrderSumByMonth(String year){
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-        for (int i=0;i<months.length;i++){
-            Double d = orderDao.getAmountByMonth(year, months[i]);
-            if(d==null)
-                datas.add(0.0);
-            else
-                datas.add(d);
-        }
+//        for (int i=0;i<months.length;i++){
+//            Double d = orderDao.getAmountByMonth(year, months[i]);
+//            if(d==null)
+//                datas.add(0.0);
+//            else
+//                datas.add(d);
+//        }
         return datas;
     }
 
@@ -280,11 +249,11 @@ public class SparkController {
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
         for (int i=0;i<months.length;i++){
-            Double d = orderDao.getCountByMonth(year, months[i]);
-            if(d==null)
-                datas.add(0.0);
-            else
-                datas.add(d);
+//            Double d = orderDao.getCountByMonth(year, months[i]);
+//            if(d==null)
+//                datas.add(0.0);
+//            else
+//                datas.add(d);
         }
         return datas;
     }
@@ -318,11 +287,11 @@ public class SparkController {
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
         for (int i=0;i<months.length;i++){
-            Double d = orderDao.getTicketsByMonth(year, months[i]);
-            if(d==null)
-                datas.add(0.0);
-            else
-                datas.add(d);
+//            Double d = orderDao.getTicketsByMonth(year, months[i]);
+//            if(d==null)
+//                datas.add(0.0);
+//            else
+//                datas.add(d);
         }
         return datas;
     }
@@ -331,11 +300,11 @@ public class SparkController {
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
         for (int i=0;i<months.length;i++){
-            Double d = orderDao.getInsuresByMonth(year, months[i]);
-            if(d==null)
-                datas.add(0.0);
-            else
-                datas.add(d);
+//            Double d = orderDao.getInsuresByMonth(year, months[i]);
+//            if(d==null)
+//                datas.add(0.0);
+//            else
+//                datas.add(d);
         }
         return datas;
     }
@@ -344,11 +313,11 @@ public class SparkController {
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
         for (int i=0;i<months.length;i++){
-            Double d = orderDao.getCarsByMonth(year, months[i]);
-            if(d==null)
-                datas.add(0.0);
-            else
-                datas.add(d);
+//            Double d = orderDao.getCarsByMonth(year, months[i]);
+//            if(d==null)
+//                datas.add(0.0);
+//            else
+//                datas.add(d);
         }
         return datas;
     }

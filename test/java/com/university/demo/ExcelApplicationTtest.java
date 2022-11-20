@@ -1,10 +1,7 @@
 package com.university.demo;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.university.demo.entity.User;
-import com.university.demo.entity.UserXls;
 import com.university.demo.service.UserService;
-import com.university.demo.util.excel.ExcelUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;

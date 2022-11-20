@@ -1,6 +1,5 @@
 package com.university.demo.controller;
 
-import com.university.demo.dao.AdminDao;
 import com.university.demo.entity.Admin;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

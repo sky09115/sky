@@ -2,17 +2,8 @@ package com.university.demo;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.university.demo.dao.RoleDao;
-import com.university.demo.dao.RouteDao;
-import com.university.demo.entity.Route;
-import com.university.demo.entity.response.BenefitItem;
-import com.university.demo.entity.response.Meta;
-import com.university.demo.entity.response.RouteVo;
 import com.university.demo.service.RouteService;
 import com.university.demo.util.RandomUtil;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

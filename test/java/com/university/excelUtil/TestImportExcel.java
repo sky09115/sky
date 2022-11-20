@@ -5,7 +5,6 @@ package com.university.excelUtil;
 
 import com.sargeraswang.util.ExcelUtil.ExcelLogs;
 import com.sargeraswang.util.ExcelUtil.ExcelUtil;
-import com.university.demo.entity.User;
 import org.junit.Test;
 
 import java.io.File;
