@@ -47,7 +47,7 @@ file:
 
 config:
   #  pythonscript
-  python-script-path: /Users/teslatk/Desktop/java/01MUSIC/01-Music-Server/src/main/java/com/university/demo/python/pythonscript/
+  python-script-path: /Volumes/tesla/code/rua/Weacher-Spring/src/main/java/com/university/demo/python/pythonscript/
   #  python3
   python-order: /Users/teslatk/.conda/envs/Belt-Flask/bin/python
   # utf-8

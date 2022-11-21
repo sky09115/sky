@@ -19,7 +19,7 @@ public class ToPython {
     String pythonScriptPath;
 
     public String wordcloud(String contents) {
-        String path = pythonScriptPath + "wordcloud.py";
+        String path = pythonScriptPath + "simple_linaer_regaression.py";
         return runPython.runPython(contents, path);
     }
 
