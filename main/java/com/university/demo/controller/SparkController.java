@@ -2,10 +2,7 @@ package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.university.demo.dao.WeatherDao;
-import com.university.demo.entity.Weather;
 import com.university.demo.entity.system.ServerResponse;
-import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
 
 import org.springframework.beans.factory.annotation.Autowired;

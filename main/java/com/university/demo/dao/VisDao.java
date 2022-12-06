@@ -1,7 +1,6 @@
 package com.university.demo.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.university.demo.entity.Province;
 import com.university.demo.entity.response.ChartData;
 import org.apache.ibatis.annotations.Select;
 
