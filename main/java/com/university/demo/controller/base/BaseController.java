@@ -12,8 +12,8 @@ import java.io.Serializable;
 
 /**
  * 实现泛型父类
- * created by redcomet
- * since 2022年1月12日11:17:35
+ * created by 麦克斯韦
+ * since 2022-12-08
  * @param <T>
  */
 public class BaseController<T> extends AbstractController<T>{
@@ -22,7 +22,7 @@ public class BaseController<T> extends AbstractController<T>{
     protected IService<T> baseSerivce;
 
     @Override
-    @PostMapping("/add")
+    @PostMapping("/")
     public ServerResponse add(@RequestBody T t) {
         boolean b = baseSerivce.saveOrUpdate(t);
         if (b) {
@@ -32,27 +32,28 @@ public class BaseController<T> extends AbstractController<T>{
     }
 
     @Override
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ServerResponse delete(@PathVariable("id") Serializable id) {
         return baseSerivce.removeById(id) ? ServerResponse.ofSuccess("删除成功！") : ServerResponse.ofError("删除失败！");
     }
 
     @Override
-    @PostMapping("/update")
-    public ServerResponse update(@RequestBody T t) {
+    @PutMapping("/{id}")
+    public ServerResponse update(@PathVariable("id") Serializable id, @RequestBody T t) {
         return baseSerivce.updateById(t) ? ServerResponse.ofSuccess("更新成功！") : ServerResponse.ofError("更新失败！");
     }
 
     @Override
-    @GetMapping("/get/{id}")
-    public ServerResponse getById(@PathVariable("id") Serializable id) {
+    @GetMapping("/{id}")
+    public ServerResponse retrieve(@PathVariable("id") Serializable id) {
         return ServerResponse.ofSuccess(baseSerivce.getById(id));
     }
 
     @Override
-    @GetMapping("/records/{page}")
-    public ServerResponse get(@PathVariable("page") Integer page,
-                                 @RequestParam(defaultValue = "15") Integer limit) {
+    @GetMapping("/")
+    public ServerResponse list(@RequestParam(defaultValue = "") String search,
+                              @RequestParam(defaultValue = "1") Integer page,
+                              @RequestParam(defaultValue = "15") Integer limit) {
         Page<T> pages = new Page<>(page, limit);
         QueryWrapper<T> wrapper = new QueryWrapper<>();
         IPage<T> iPage = baseSerivce.page(pages, wrapper);

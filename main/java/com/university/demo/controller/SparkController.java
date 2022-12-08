@@ -22,8 +22,8 @@ import java.util.Map;
 public class SparkController {
 
 
-    @Autowired
-    WeatherDao weatherDao;
+//    @Autowired
+//    WeatherDao weatherDao;
 
 
 //    @Autowired
@@ -40,10 +40,7 @@ public class SparkController {
         Map map = new HashMap();
 //        System.out.println(orderDao.selectCount(null));
 //        System.out.println( userDao.selectCount(null)*1.0);
-        String t = weatherDao.getCurrentDay();
-        System.out.println(t);
-        Weather weather = weatherDao.getW(t, city);
-        map.put("weather", weather);
+
 
 //        map.put("users", userDao.getUsersCount());
 //        map.put("orders", orderDao.selectCount(null));
@@ -82,24 +79,24 @@ public class SparkController {
     @RequestMapping(value = "/dash20", method = RequestMethod.GET)
     public ServerResponse Dash20(@RequestParam(defaultValue = "北京市") String city) {
         Map map = new HashMap();
-        map.put("hotrank", weatherDao.getHistoryPrecipitation(city));
+//        map.put("hotrank", weatherDao.getHistoryPrecipitation(city));
         return ServerResponse.ofSuccess(map);
     }
 
     @RequestMapping(value = "/dash21", method = RequestMethod.GET)
     public ServerResponse dash21(@RequestParam(defaultValue = "北京市") String city) {
         Map map = new HashMap();
-        map.put("rank", weatherDao.getHistoryWeather(city));
+//        map.put("rank", weatherDao.getHistoryWeather(city));
         return ServerResponse.ofSuccess(map);
     }
 
     @RequestMapping(value = "/dash22", method = RequestMethod.GET)
     public ServerResponse dash22(@RequestParam(defaultValue = "北京市") String city) {
         Map map = new HashMap();
-        String t = weatherDao.getCurrentDay();
-        map.put("provinceRank", weatherDao.getProvinceWeather());
-        map.put("cityRank", weatherDao.getCityWeather());
-        map.put("districtRank", weatherDao.getCountyWeather());
+//        String t = weatherDao.getCurrentDay();
+//        map.put("provinceRank", weatherDao.getProvinceWeather());
+//        map.put("cityRank", weatherDao.getCityWeather());
+//        map.put("districtRank", weatherDao.getCountyWeather());
         return ServerResponse.ofSuccess(map);
     }
 
@@ -127,13 +124,13 @@ public class SparkController {
         // 通过日志汇总
 //        map.put("orders", orderDao.getUserOrderRank());
 //        map.put("order2022", getOrderSumByMonth("2022"));
-        map.put("order2021", weatherDao.getHistoryWindPowder(city));
-        map.put("order2022", weatherDao.getHistoryPressure(city));
-        map.put("orderCount2021", weatherDao.getHistoryWindPowder(city));
-        map.put("orderCount2022", weatherDao.getHistoryPressure(city));
-        map.put("guangzhou", weatherDao.getHistoryWeather("广州市"));
-        map.put("shenzhen", weatherDao.getHistoryWeather("深圳市"));
-        map.put("shanghai", weatherDao.getHistoryWeather("上海市"));
+//        map.put("order2021", weatherDao.getHistoryWindPowder(city));
+//        map.put("order2022", weatherDao.getHistoryPressure(city));
+//        map.put("orderCount2021", weatherDao.getHistoryWindPowder(city));
+//        map.put("orderCount2022", weatherDao.getHistoryPressure(city));
+//        map.put("guangzhou", weatherDao.getHistoryWeather("广州市"));
+//        map.put("shenzhen", weatherDao.getHistoryWeather("深圳市"));
+//        map.put("shanghai", weatherDao.getHistoryWeather("上海市"));
 
 //        map.put("cars2022", getCarsSum("2022"));
 //        map.put("tickets2022", getTicketsSumByMonth("2022"));
@@ -166,7 +163,7 @@ public class SparkController {
     @RequestMapping(value = "/industryFields", method = RequestMethod.GET)
     public ServerResponse IndustryFields(@RequestParam(defaultValue = "北京市") String city) throws ParseException {
         Map map = new HashMap();
-        map.put("industryFields", weatherDao.getHistoryWeather(city));
+//        map.put("industryFields", weatherDao.getHistoryWeather(city));
         return ServerResponse.ofSuccess(map);
     }
 
@@ -210,7 +207,7 @@ public class SparkController {
     @RequestMapping(value = "/logins", method = RequestMethod.GET)
     public ServerResponse Logins(@RequestParam(defaultValue = "北京市") String city) throws ParseException {
         Map map = new HashMap();
-        map.put("logins", weatherDao.getHistoryHumidity(city));
+//        map.put("logins", weatherDao.getHistoryHumidity(city));
 
 //        map.put("xData",logService.chartDay(SysConstant.LOGIN));
 //        map.put("logins",logService.chartCount(SysConstant.LOGIN));

@@ -1,6 +1,8 @@
 package com.university.demo.controller.base;
 
 import com.university.demo.entity.system.ServerResponse;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 
@@ -16,10 +18,10 @@ public abstract class AbstractController<T> {
 
     public abstract ServerResponse delete(Serializable id);
 
-    public abstract ServerResponse update(T t);
+    public abstract ServerResponse update(@PathVariable("id") Serializable id, T t);
 
-    public abstract ServerResponse getById(Serializable id);
+    public abstract ServerResponse retrieve(Serializable id);
 
-    public abstract ServerResponse get(Integer id, Integer limit);
+    public abstract ServerResponse list(String search, Integer page, Integer limit);
 
 }
