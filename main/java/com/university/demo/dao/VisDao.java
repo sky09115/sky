@@ -1,6 +1,7 @@
 package com.university.demo.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.university.demo.entity.User;
 import com.university.demo.entity.response.ChartData;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,10 +12,10 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author tesla
+ * @author max
  * @since 2022-10-08
  */
-public interface VisDao extends BaseMapper<Province> {
+public interface VisDao extends BaseMapper<User> {
 
     @Select(" select '歌曲' as name , count(1)  as value from  tb_song2 ")
     ChartData getC1();
