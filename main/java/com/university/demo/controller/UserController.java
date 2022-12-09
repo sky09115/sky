@@ -37,8 +37,6 @@ public class UserController extends BaseController<User> {
     private TokenService tokenService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private RouteService routeService;
     protected String[] search_fields = new String[]{"username", "realname"};
     protected String[] search_filter = new String[]{"roles", "=major"};
 
@@ -85,12 +83,6 @@ public class UserController extends BaseController<User> {
             return ServerResponse.ofSuccess(map);
         }
         return ServerResponse.ofError("查询失败!");
-    }
-
-    @GetMapping("/getRoutes/{role}")
-    public ServerResponse getRoutesByRole(@PathVariable("role") String roleName) {
-        List<RouteVo> routes = routeService.getRoutes(roleName);
-        return ServerResponse.ofSuccess(routes);
     }
 }
 
