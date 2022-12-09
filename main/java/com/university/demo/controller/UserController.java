@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 @RequestMapping("/user")
 public class UserController extends BaseController<User> {
     protected String[] search_fields = new String[]{"username", "realname"};
-    protected String[] search_filter = new String[]{"roles", "major"};
+    protected String[] search_filter = new String[]{"roles", "=major"};
 
     @Override
     @GetMapping("/")
