@@ -5,13 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.controller.base.BaseController;
+import com.university.demo.controller.base.MyWrapper;
 import com.university.demo.entity.User;
 import com.university.demo.entity.system.ServerResponse;
-import com.university.demo.util.MyWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.Consumer;
 
 /**
  * @author 麦克斯韦

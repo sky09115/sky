@@ -1,7 +1,6 @@
-package com.university.demo.util;
+package com.university.demo.controller.base;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.university.demo.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 
