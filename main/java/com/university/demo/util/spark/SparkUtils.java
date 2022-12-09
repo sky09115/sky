@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 
-@Component
+//@Component
 public class SparkUtils {
 
     private final String DB_URL = "jdbc:mysql://localhost:3306/27music?serverTimezone=Asia/Shanghai";

@@ -7,26 +7,34 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.controller.base.BaseController;
 import com.university.demo.entity.User;
 import com.university.demo.entity.system.ServerResponse;
+import com.university.demo.util.MyWrapper;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.function.Consumer;
+
 /**
  * @author 麦克斯韦
  * @since  2022-12-08
- * @说明： 1. list 支持一个搜索参数search，如果需要条件较多的搜索，则需要专门定制接口
- *        2. 特别定制查询接口也用get方法，这样可以获得更好的兼容性
+ * @说明： 1. list 支持一个搜索参数search，search_fields 支持多字段模糊查询
+ *        2. list search_filter为拓展的get请求参数,配置了前台可以不传,不影响查询结果
  */
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController<User> {
     protected String[] search_fields = new String[]{"username", "realname"};
+    protected String[] search_filter = new String[]{"roles", "major"};
 
     @Override
     @GetMapping("/")
-    public ServerResponse list(@RequestParam(defaultValue = "") String search,
+    public ServerResponse list(HttpServletRequest request,
+                               @RequestParam(defaultValue = "") String search,
                                @RequestParam(defaultValue = "1") Integer page,
-                               @RequestParam(defaultValue = "15") Integer limit) {
+                               @RequestParam(defaultValue = "15") Integer limit
+                               ) {
         Page<User> pages = new Page<>(page, limit);
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        for(String field: search_fields) wrapper.or().like(field, search);
+        MyWrapper<User> wrapperFactory = new MyWrapper<>();
+        QueryWrapper<User> wrapper = wrapperFactory.init(request, search, search_fields, search_filter);
         IPage<User> iPage = baseSerivce.page(pages, wrapper);
         return ServerResponse.ofSuccess(iPage);
     }

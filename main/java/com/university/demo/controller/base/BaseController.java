@@ -8,6 +8,7 @@ import com.university.demo.entity.system.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -51,9 +52,10 @@ public class BaseController<T> extends AbstractController<T>{
 
     @Override
     @GetMapping("/")
-    public ServerResponse list(@RequestParam(defaultValue = "") String search,
-                              @RequestParam(defaultValue = "1") Integer page,
-                              @RequestParam(defaultValue = "15") Integer limit) {
+    public ServerResponse list(HttpServletRequest request,
+                               @RequestParam(defaultValue = "") String search,
+                               @RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "15") Integer limit) {
         Page<T> pages = new Page<>(page, limit);
         QueryWrapper<T> wrapper = new QueryWrapper<>();
         IPage<T> iPage = baseSerivce.page(pages, wrapper);

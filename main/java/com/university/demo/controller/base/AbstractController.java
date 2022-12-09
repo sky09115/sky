@@ -4,6 +4,7 @@ import com.university.demo.entity.system.ServerResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -22,6 +23,7 @@ public abstract class AbstractController<T> {
 
     public abstract ServerResponse retrieve(Serializable id);
 
-    public abstract ServerResponse list(String search, Integer page, Integer limit);
+    public abstract ServerResponse list(HttpServletRequest request,
+                                        String search, Integer page, Integer limit);
 
 }
