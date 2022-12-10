@@ -2,6 +2,8 @@ package com.university.demo;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.university.demo.dao.RoleDao;
+import com.university.demo.dao.RouteDao;
 import com.university.demo.service.RouteService;
 import com.university.demo.util.RandomUtil;
 import org.junit.runner.RunWith;
@@ -40,47 +42,5 @@ public class CoursearrangeApplicationTests {
     }
 
     //@Test
-    public void roles() {
-        roleDao.selectList(null);
-    }
 
-    //@Test
-    public void routes() {
-        List<RouteVo> routes = new ArrayList<>();   //返回数据为RouteVo对象列表
-        QueryWrapper<Route> query = new QueryWrapper<>();
-        query.eq("pid", -1);  //从父菜单开始搜索
-        List<Route> route = routeDao.selectList(query);
-        route.forEach(r -> {
-            //先给自己设置Meta，以及第一个children节点
-            RouteVo vo = new RouteVo();
-            BeanUtils.copyProperties(r, vo);
-            Meta meta = new Meta();
-            meta.setAffix(r.getAffix());
-            meta.setHidden(r.getHidden());
-            meta.setTitle(r.getTitle());
-            meta.setRoles(r.getRoles());
-            meta.setIcon(r.getIcon());
-            vo.setMeta(meta);
-
-            List<RouteVo> children = new ArrayList<>();
-            RouteVo firstChild = new RouteVo();
-            BeanUtils.copyProperties(vo, firstChild);
-            firstChild.setPid(r.getId());
-            children.add(firstChild);
-
-            //处理其他children
-            // TODO
-
-            vo.setChildren(children);
-            routes.add(vo);
-        });
-
-        System.out.println(routes);
-    }
-
-//    @Test
-    public void routesService() {
-        List<RouteVo> routes = routeService.getRoutes("admin");
-        System.out.println(routes);
-    }
 }
