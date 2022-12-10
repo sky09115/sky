@@ -26,12 +26,12 @@ public class RoleRoute extends Model<RoleRoute> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String roleName;
+    private String role_name;
 
-    private Integer routeId;
+    private Integer route_id;
 
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     @Override
     protected Serializable pkVal() {

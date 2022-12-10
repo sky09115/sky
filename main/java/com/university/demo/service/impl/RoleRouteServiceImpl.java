@@ -26,8 +26,8 @@ public class RoleRouteServiceImpl extends ServiceImpl<RoleRouteDao, RoleRoute> i
         baseMapper.delete(wrapper);
         routeVos.forEach(routeVo -> {
             RoleRoute rr = new RoleRoute();
-            rr.setRoleName(key);
-            rr.setRouteId(routeVo.getId());
+            rr.setRole_name(key);
+            rr.setRoute_id(routeVo.getId());
             baseMapper.insert(rr);
             //这个仅针对一级菜单的情况使用
             QueryWrapper<Route> childQuery = new QueryWrapper<>();
@@ -35,8 +35,8 @@ public class RoleRouteServiceImpl extends ServiceImpl<RoleRouteDao, RoleRoute> i
             List<Route> children = routeDao.selectList(childQuery);
             children.forEach(child->{
                 RoleRoute rr2 = new RoleRoute();
-                rr2.setRoleName(key);
-                rr2.setRouteId(child.getId());
+                rr2.setRole_name(key);
+                rr2.setRoute_id(child.getId());
                 baseMapper.insert(rr2);
             });
         });
