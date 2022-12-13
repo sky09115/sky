@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 public class BaseController<T> extends AbstractController<T>{
 
-    @Autowired
+    @Autowired(required = false)
     protected IService<T> baseSerivce;
 
     @Override
