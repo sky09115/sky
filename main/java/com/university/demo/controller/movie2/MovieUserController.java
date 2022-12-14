@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/movieuser")
 public class MovieUserController extends BaseController<MovieUser> {
 
-    protected String[] search_fields = new String[]{"douban_id"};
+    protected String[] search_fields = new String[]{"user_id","user_name", "user_unique_name"};
     protected String[] search_filter = new String[]{};
 
     @Override

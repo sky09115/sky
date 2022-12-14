@@ -52,12 +52,11 @@ public class MovieUserRatingsController extends BaseController<MovieUserRatings>
     @GetMapping("/list2")
     public ServerResponse list2(HttpServletRequest request,
                                 @RequestParam(defaultValue = "") String search,
-                                @RequestParam(defaultValue = "") String username,
                                 @RequestParam(defaultValue = "1") Integer page,
                                 @RequestParam(defaultValue = "15") Integer limit
     ) {
         Page<MovieUserRatingsVo> pages = new Page<>(page, limit);
-        IPage<MovieUserRatingsVo> iPage = pages.setRecords(dao.select(pages, search, username));
+        IPage<MovieUserRatingsVo> iPage = pages.setRecords(dao.select(pages, search));
         return ServerResponse.ofSuccess(iPage);
     }
 }
