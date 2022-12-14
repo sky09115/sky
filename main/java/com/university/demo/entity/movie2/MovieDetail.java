@@ -1,5 +1,7 @@
 package com.university.demo.entity.movie2;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ public class MovieDetail extends Model<MovieDetail> {
 
     private static final long serialVersionUID=1L;
 
+    @TableId()
     private Integer douban_id;
 
     private String title;
@@ -42,11 +45,6 @@ public class MovieDetail extends Model<MovieDetail> {
 
     private Integer rating_num;
 
-    private String user_movie_rating_time;
-
-    private String user_movie_rating_content;
-
-    private Integer user_movie_rating_agree;
 
     private String rating_5_star_weight;
 

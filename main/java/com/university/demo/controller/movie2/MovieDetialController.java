@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/detail")
 public class MovieDetialController extends BaseController<MovieDetail> {
 
-    protected String[] search_fields = new String[]{"douban_id"};
+    protected String[] search_fields = new String[]{"title", "casts", "directors"};
     protected String[] search_filter = new String[]{};
 
     @Override
