@@ -1,5 +1,6 @@
 package com.university.demo.entity.movie2;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ public class ImdbRatings extends Model<ImdbRatings> {
 
     private static final long serialVersionUID=1L;
 
+    @TableId()
     private String imdb_id;
 
     private Integer douban_id;

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ImdbRatingsDao extends BaseMapper<ImdbRatings> {
     @Select("select  a.*,b.title from imdb_ratings a,movie_detail b " +
-            "where a.douban_id = b.douban_id and b.title like CONCAT('%',#{title},'%') " +
-            "  ")
+            "where a.douban_id = b.douban_id and ( b.title like CONCAT('%',#{title},'%') " +
+            " or a.imdb_id like   CONCAT('%',#{title},'%')  ) ")
     List<ImdbRatingsVo> select(Page page, String title);
 }
