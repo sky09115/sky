@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  *        2. list search_filter为拓展的get请求参数,配置了前台可以不传,不影响查询结果
  */
 @RestController
-@RequestMapping("/detail")
+@RequestMapping("/movietag")
 public class MovieTagController extends BaseController<MovieTag> {
 
     protected String[] search_fields = new String[]{"douban_id"};

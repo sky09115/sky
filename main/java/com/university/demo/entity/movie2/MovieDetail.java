@@ -34,7 +34,7 @@ public class MovieDetail extends Model<MovieDetail> {
 
     private String publish_date;
 
-    private String run_time;
+    private String runtime;
 
     private Double rating_score;
 
