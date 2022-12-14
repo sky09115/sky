@@ -26,4 +26,7 @@ public class MovieUserRatings extends Model<MovieUserRatings> {
     private Integer user_id;
 
     private Double user_movie_rating;
+
+    private String user_movie_rating_time;
+
 }

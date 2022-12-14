@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-12-08
  */
 public interface MovieUserRatingsDao extends BaseMapper<MovieUserRatings> {
-    @Select("select  a.*,b.title from movie_user_ratings a,movie_detail b," +
+    @Select("select  a.*,b.title,c.user_name as username from movie_user_ratings a,movie_detail b," +
             "movie_user c " +
             "where a.douban_id = b.douban_id  " +
             " and a.user_id = c.user_id and  ( c.user_name  like CONCAT('%',#{title},'%')" +
