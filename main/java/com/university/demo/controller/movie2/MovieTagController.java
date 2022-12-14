@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/movietag")
 public class MovieTagController extends BaseController<MovieTag> {
 
-    protected String[] search_fields = new String[]{"douban_id"};
+    protected String[] search_fields = new String[]{"tag_name"};
     protected String[] search_filter = new String[]{};
 
     @Override

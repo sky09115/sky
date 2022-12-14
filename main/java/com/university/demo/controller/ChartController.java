@@ -8,6 +8,8 @@ import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
 import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
+import com.university.demo.service.movie2.MovieDetailService;
+import com.university.demo.service.movie2.MovieUserRatingsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,13 @@ public class ChartController {
     private UserService userService;
     @Autowired
     private LogService logService;
+
+    @Autowired
+    private MovieDetailService movieDetailService;
+
+    @Autowired
+    private MovieUserRatingsService movieUserRatingsService;
+
     @Autowired
     private UserDao userDao;
 
@@ -40,8 +49,8 @@ public class ChartController {
         Map map = new HashMap();
         map.put("users", userService.count());
         map.put("logs", logService.count());
-        map.put("three", 0);
-        map.put("four", 0);
+        map.put("three", movieDetailService.count());
+        map.put("four", movieUserRatingsService.count());
         return ServerResponse.ofSuccess(map);
     }
 

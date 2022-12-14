@@ -1,5 +1,6 @@
 package com.university.demo.entity.movie2;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.AllArgsConstructor;
@@ -16,5 +17,6 @@ public class MovieTag extends Model<MovieTag> {
 
     private String tag_name;
 
+    @TableId()
     private Integer tag_id;
 }

@@ -18,6 +18,7 @@ public class MovieUserRatings extends Model<MovieUserRatings> {
 
     private static final long serialVersionUID=1L;
 
+    @TableId()
     private String review_id;
 
     private Integer douban_id;

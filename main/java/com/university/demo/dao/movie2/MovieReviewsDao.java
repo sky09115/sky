@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface MovieReviewsDao extends BaseMapper<MovieReviews> {
     @Select("select  a.*,b.title from movie_reviews a,movie_detail b " +
-            "where a.douban_id = b.douban_id and b.title like CONCAT('%',#{title},'%') " +
-            "  ")
+            "where a.douban_id = b.douban_id and ( b.title like CONCAT('%',#{title},'%') " +
+            " or a.douban_id like   CONCAT('%',#{title},'%')  ) ")
     List<MovieReviewsVo> select(Page page, String title);
 }
