@@ -4,6 +4,7 @@ package com.university.demo.controller;
 
 import com.university.demo.dao.UserDao;
 
+import com.university.demo.dao.VisDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
 import com.university.demo.service.LogService;
@@ -43,7 +44,8 @@ public class ChartController {
 
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private VisDao visDao;
     @GetMapping("/panel")
     public ServerResponse panelData() {
         Map map = new HashMap();
@@ -83,6 +85,28 @@ public class ChartController {
 
         map.put("male",males);
         map.put("female",females);
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @GetMapping("/get12")
+    public ServerResponse get12() throws ParseException {
+        Map map = new HashMap();
+        map.put("province",userDao.getUserProvince());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @GetMapping("/get13")
+    public ServerResponse get13() throws ParseException {
+        Map map = new HashMap();
+        map.put("dateList",visDao.review_day());
+        map.put("numList",logService.reviewCount());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @GetMapping("/get23")
+    public ServerResponse get23() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",visDao.get23());
         return ServerResponse.ofSuccess(map);
     }
 }

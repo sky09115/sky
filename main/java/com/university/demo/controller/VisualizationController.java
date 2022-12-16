@@ -30,52 +30,9 @@ public class VisualizationController {
     ToPython toPython;
 
     // 主页面板     ***************************
-    @GetMapping("/analysis")
-    public ServerResponse analysis() throws Exception{
-        List<ChartData> chartDataList = new ArrayList<>();
-        chartDataList.add(dao.getC1());
-        chartDataList.add(dao.getC2());
-        chartDataList.add(dao.getC3());
-        chartDataList.add(dao.getC4());
-        chartDataList.add(dao.getC5());
-        chartDataList.add(dao.getC6());
-        chartDataList.add(dao.getC7());
-        chartDataList.add(dao.getC8());
-        return ServerResponse.ofSuccess(chartDataList);
-    }
+
 
     // 可视化分析1  ****************************
-    @GetMapping("/get11")
-    public ServerResponse get11() throws Exception{
-        List<ChartData> dataList = dao.get11();
-        return ServerResponse.ofSuccess(dataList);
-    }
-
-    @GetMapping("/get13")
-    public ServerResponse get13() throws Exception{
-        List<ChartData> dataList = dao.get13();
-        return ServerResponse.ofSuccess(dataList);
-    }
-
-    // 可视化分析3  ****************************
-    @GetMapping("/get31")
-    public ServerResponse get31() throws Exception{
-        List<ChartData> dataList = dao.get31();
-        return ServerResponse.ofSuccess(dataList);
-    }
-
-    @GetMapping("/get32")
-    public ServerResponse get32() throws Exception{
-        Map<String, Object> map = new HashMap();
-        map.put("ratio1", dao.get32());
-        return ServerResponse.ofSuccess(map);
-    }
-
-    @GetMapping("/get33")
-    public ServerResponse get33() throws Exception{
-        List<ChartData> dataList = dao.get33();
-        return ServerResponse.ofSuccess(dataList);
-    }
     // 词云        ****************************
 
     @RequestMapping(value = "/get51", method = RequestMethod.GET)

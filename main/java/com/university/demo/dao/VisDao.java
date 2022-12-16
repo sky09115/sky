@@ -17,43 +17,30 @@ import java.util.List;
  */
 public interface VisDao extends BaseMapper<User> {
 
-    @Select(" select '歌曲' as name , count(1)  as value from  tb_song2 ")
-    ChartData getC1();
 
-    @Select(" select '专辑' as name , count(1)  as value from  tb_album ")
-    ChartData getC2();
+    @Select(" select substr(title,1,10) as name, rating_score as value " +
+            " from  movie_detail order by rating_score desc limit 10 ")
+    List<ChartData> get23();
 
-    @Select(" select '音乐人' as name , count(1)  as value from  tb_artist2 ")
-    ChartData getC3();
-
-    @Select(" select '歌词' as name , count(1)  as value from  tb_lyric ")
-    ChartData getC4();
-
-    @Select(" select 'MV' as name , count(1)  as value from  tb_song2 where mv<>'0' ")
-    ChartData getC5();
-
-    @Select(" select '歌手' as name , count(1)  as value from  tb_artist2 where indentities like '%歌手%' ")
-    ChartData getC6();
-
-    @Select(" select '作曲' as name , count(1)  as value from  tb_artist2 where indentities like '%作曲%' ")
-    ChartData getC7();
-
-    @Select(" select '作词' as name , count(1)  as value from  tb_artist2 where indentities like '%作词%' ")
-    ChartData getC8();
-
-    @Select("select  singerName as name , count(1) as value from  tb_song2 group by singerName order by count(1) desc limit 15")
-    List<ChartData> get11();
-
-    @Select("select  singerName as name , count(1) as value, count(1) from  tb_song2 group by singerName having count(1)>200 order by count(1) desc limit 15")
-    List<ChartData> get13();
-
-    @Select("select  `name` as name , cast(commentCount as signed) as `value` from  tb_album  " +
-            " order by cast(commentCount as signed) desc limit 5")
+    @Select(" select title as name, rating_score as value " +
+            " from  movie_detail order by rating_score desc limit 10 ")
     List<ChartData> get31();
 
-    @Select("select  avg( cast(commentCount as signed)) as value from  tb_album  ")
-    Integer get32();
+    @Select(" select title as name, rating_score as value " +
+            " from  movie_detail order by rating_score desc limit 10 ")
+    List<ChartData> get32();
 
-    @Select("select  `company` as name , count(1) as value from  tb_album group by `company` order by count(1) desc limit 50 " )
+    @Select(" select title as name, rating_score as value " +
+            " from  movie_detail order by rating_score desc limit 10 ")
     List<ChartData> get33();
+
+    @Select("select distinct d from (select  distinct DATE_FORMAT(user_movie_rating_time,'%Y-%m-%d') as d  " +
+            "            from  movie_reviews " +
+            " order by DATE_FORMAT(user_movie_rating_time,'%Y-%m-%d') desc limit 15) as tt order by d")
+    List<String> review_day();
+
+
+
+
+
 }

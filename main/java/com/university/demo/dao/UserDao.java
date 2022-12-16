@@ -15,6 +15,9 @@ public interface UserDao extends BaseMapper<User> {
     @Select("select job as name, count(*) as value from  tb_user group by job")
     List<ChartData> getUserJob();
 
+    @Select("select addr as name, count(*) as value from  tb_user group by addr")
+    List<ChartData> getUserProvince();
+
     @Select("select  count(*)  from  tb_user where gender =#{gender} and job = #{job}")
     Integer getUserJobSex(String gender, String job);
 }
