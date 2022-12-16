@@ -2,21 +2,20 @@ package com.university.demo.controller;
 
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.university.demo.dao.UserDao;
 
 import com.university.demo.dao.VisDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
+import com.university.demo.python.TransferPython.ToPython;
 import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
 import com.university.demo.service.movie2.MovieDetailService;
 import com.university.demo.service.movie2.MovieUserRatingsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -46,6 +45,9 @@ public class ChartController {
     private UserDao userDao;
     @Autowired
     private VisDao visDao;
+
+    @Autowired
+    ToPython toPython;
     @GetMapping("/panel")
     public ServerResponse panelData() {
         Map map = new HashMap();
@@ -105,6 +107,23 @@ public class ChartController {
 
     @GetMapping("/get23")
     public ServerResponse get23() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",visDao.get23());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/get31", method = RequestMethod.GET)
+    public ServerResponse get31() throws ParseException {
+        //调用python脚本
+        String content = toPython.wordcloud2(" ");
+        //转为json数据
+        JSONObject jo = JSONObject.parseObject(content);
+        return ServerResponse.ofSuccess(jo);
+    }
+
+
+    @GetMapping("/get32")
+    public ServerResponse get32() throws ParseException {
         Map map = new HashMap();
         map.put("data",visDao.get23());
         return ServerResponse.ofSuccess(map);
