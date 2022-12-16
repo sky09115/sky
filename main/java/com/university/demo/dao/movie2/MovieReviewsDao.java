@@ -17,4 +17,16 @@ public interface MovieReviewsDao extends BaseMapper<MovieReviews> {
             "where a.douban_id = b.douban_id and ( b.title like CONCAT('%',#{title},'%') " +
             " or a.douban_id like   CONCAT('%',#{title},'%')  ) ")
     List<MovieReviewsVo> select(Page page, String title);
+
+    @Select(" select avg(rating_score) from movie_detail " +
+            " where production_country_area like  CONCAT('%',#{country},'%')  ")
+    Double getRate(String country);
+
+    @Select(" select avg(rating_num) from movie_detail " +
+            " where production_country_area like  CONCAT('%',#{country},'%')  ")
+    Double getRateNum(String country);
+
+    @Select(" select  avg(replace(rating_5_star_weight,'%',''))  from movie_detail " +
+            " where production_country_area like  CONCAT('%',#{country},'%')  ")
+    Double getRate5Star(String country);
 }

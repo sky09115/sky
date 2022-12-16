@@ -12,6 +12,7 @@ import com.university.demo.python.TransferPython.ToPython;
 import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
 import com.university.demo.service.movie2.MovieDetailService;
+import com.university.demo.service.movie2.MovieReviewsService;
 import com.university.demo.service.movie2.MovieUserRatingsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class ChartController {
     @Autowired
     private MovieUserRatingsService movieUserRatingsService;
 
+    @Autowired
+    private MovieReviewsService movieReviewsService;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -125,7 +128,11 @@ public class ChartController {
     @GetMapping("/get32")
     public ServerResponse get32() throws ParseException {
         Map map = new HashMap();
-        map.put("data",visDao.get23());
+        String[] category = {"美国", "中国大陆","中国香港", "日本", "法国", "英国", "韩国", "德国"};
+        map.put("category", category);
+        map.put("barData", movieReviewsService.getRate1(category));
+        map.put("lineData", movieReviewsService.getRateNum(category));
+        map.put("rateData", movieReviewsService.getRate5Star(category));
         return ServerResponse.ofSuccess(map);
     }
 }
