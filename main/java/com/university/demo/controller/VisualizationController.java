@@ -1,19 +1,13 @@
 package com.university.demo.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.university.demo.dao.VisDao;
-import com.university.demo.entity.response.ChartData;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.python.TransferPython.ToPython;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author tesla
@@ -22,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/vis2")
 public class VisualizationController {
+
 
     @Autowired
     private VisDao dao;
