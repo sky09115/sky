@@ -14,6 +14,7 @@ import com.university.demo.service.UserService;
 import com.university.demo.service.movie2.MovieDetailService;
 import com.university.demo.service.movie2.MovieReviewsService;
 import com.university.demo.service.movie2.MovieUserRatingsService;
+import com.university.demo.service.movie2.MovieUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,8 @@ public class ChartController {
 
     @Autowired
     private MovieUserRatingsService movieUserRatingsService;
-
+    @Autowired
+    private MovieUserService movieUserService;
     @Autowired
     private MovieReviewsService movieReviewsService;
     @Autowired
@@ -92,7 +94,15 @@ public class ChartController {
         map.put("female",females);
         return ServerResponse.ofSuccess(map);
     }
-
+    @GetMapping("/get11")
+    public ServerResponse get11() throws ParseException {
+        Map map = new HashMap();
+        map.put("onlineNum",movieDetailService.count(null));
+        map.put("totalNum",movieUserService.count(null));
+        map.put("offlineNum",movieReviewsService.count(null));
+        map.put("alarmNum",movieUserRatingsService.count(null));
+        return ServerResponse.ofSuccess(map);
+    }
     @GetMapping("/get12")
     public ServerResponse get12() throws ParseException {
         Map map = new HashMap();
