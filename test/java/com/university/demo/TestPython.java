@@ -1,7 +1,5 @@
 package com.university.demo;
 
-import com.qianxinyao.analysis.jieba.keyword.Keyword;
-import com.qianxinyao.analysis.jieba.keyword.TFIDFAnalyzer;
 import com.university.demo.python.TransferPython.ToPython;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

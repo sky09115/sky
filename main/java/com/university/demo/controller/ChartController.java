@@ -11,6 +11,8 @@ import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
 import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
+import com.university.demo.service.game.GameServerService;
+import com.university.demo.service.game.GameService;
 import com.university.demo.service.movie2.MovieDetailService;
 import com.university.demo.service.movie2.MovieReviewsService;
 import com.university.demo.service.movie2.MovieUserRatingsService;
@@ -43,9 +45,9 @@ public class ChartController {
     @Autowired
     private MovieUserRatingsService movieUserRatingsService;
     @Autowired
-    private MovieUserService movieUserService;
+    private GameService gameService;
     @Autowired
-    private MovieReviewsService movieReviewsService;
+    private GameServerService gameServerService;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -58,8 +60,8 @@ public class ChartController {
         Map map = new HashMap();
         map.put("users", userService.count());
         map.put("logs", logService.count());
-        map.put("three", movieDetailService.count());
-        map.put("four", movieUserRatingsService.count());
+        map.put("three", gameService.count());
+        map.put("four", gameServerService.count());
         return ServerResponse.ofSuccess(map);
     }
 
@@ -98,8 +100,8 @@ public class ChartController {
     public ServerResponse get11() throws ParseException {
         Map map = new HashMap();
         map.put("onlineNum",movieDetailService.count(null));
-        map.put("totalNum",movieUserService.count(null));
-        map.put("offlineNum",movieReviewsService.count(null));
+//        map.put("totalNum",movieUserService.count(null));
+//        map.put("offlineNum",movieReviewsService.count(null));
         map.put("alarmNum",movieUserRatingsService.count(null));
         return ServerResponse.ofSuccess(map);
     }
@@ -140,9 +142,9 @@ public class ChartController {
         Map map = new HashMap();
         String[] category = {"美国", "中国大陆","中国香港", "日本", "法国", "英国", "韩国", "德国"};
         map.put("category", category);
-        map.put("barData", movieReviewsService.getRate1(category));
-        map.put("lineData", movieReviewsService.getRateNum(category));
-        map.put("rateData", movieReviewsService.getRate5Star(category));
+//        map.put("barData", movieReviewsService.getRate1(category));
+//        map.put("lineData", movieReviewsService.getRateNum(category));
+//        map.put("rateData", movieReviewsService.getRate5Star(category));
         return ServerResponse.ofSuccess(map);
     }
 }
