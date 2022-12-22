@@ -31,7 +31,7 @@ public class Order extends Model<Order> {
     public static final Integer STAT_FINISH = 4;
     public static final Integer STAT_RATED = 5;
 
-    @TableId(value = "id", type = IdType.UUID)
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
 
     private Integer uid;  //用户ID
@@ -42,6 +42,8 @@ public class Order extends Model<Order> {
 
     private String subject; //购买项目
     private String type; //类型
+
+    private String goods_name; //商品名称
 
     private Double price;  //单价
     private Double amount;  //数量
