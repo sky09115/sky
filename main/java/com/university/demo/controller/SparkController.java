@@ -2,15 +2,18 @@ package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.university.demo.entity.game.Game;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.python.TransferPython.ToPython;
 
+import com.university.demo.service.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +31,9 @@ public class SparkController {
 
 //    @Autowired
 //    SparkUtils sparkUtils;
+
+    @Autowired
+    GameService gameService;
 
     @Autowired
     ToPython toPython;
@@ -268,25 +274,41 @@ public class SparkController {
     }
 
     /***********  python scripts begin   ************/
-    @RequestMapping(value = "/t", method = RequestMethod.GET)
-    public ServerResponse testPython() throws ParseException {
+    @RequestMapping(value = "/usercf", method = RequestMethod.GET)
+    public ServerResponse testPython(@RequestParam(defaultValue = "1") String uid) throws ParseException {
         Map map = new HashMap();
+        List<Game> dataList  = new ArrayList<>();
         //调用python脚本
-        String content = toPython.wordcloud(" ");
+        String content = toPython.userrec(uid);
         //转为json数据
-        JSONObject jo = JSONObject.parseObject(content);
-        map.put("wordcloud",jo);
+        JSONArray jo = JSONObject.parseArray(content);
+        for(int i=0; i<jo.size(); i++){
+            JSONObject o = jo.getJSONObject(i);
+            System.out.println(o.get("iid"));
+            Game game = gameService.getById((Serializable) o.get("iid"));
+            dataList.add(game);
+        }
+
+        map.put("rec",dataList);
         return ServerResponse.ofSuccess(map);
     }
 
-    @RequestMapping(value = "/t2", method = RequestMethod.GET)
-    public ServerResponse testPython2() throws ParseException {
+    @RequestMapping(value = "/itemcf", method = RequestMethod.GET)
+    public ServerResponse testPython2(@RequestParam(defaultValue = "1") String uid) throws ParseException {
         Map map = new HashMap();
+        List<Game> dataList  = new ArrayList<>();
         //调用python脚本
-        String content = toPython.itemrec("1");
+        String content = toPython.itemrec(uid);
         //转为json数据
         JSONArray jo = JSONObject.parseArray(content);
-        map.put("rec",jo);
+        for(int i=0; i<jo.size(); i++){
+            JSONObject o = jo.getJSONObject(i);
+            System.out.println(o.get("iid"));
+            Game game = gameService.getById((Serializable) o.get("iid"));
+            dataList.add(game);
+        }
+
+        map.put("rec",dataList);
         return ServerResponse.ofSuccess(map);
     }
     /***********  python scripts end   ************/
