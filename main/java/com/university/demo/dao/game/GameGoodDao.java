@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-12-21
  */
 public interface GameGoodDao extends BaseMapper<GameGood> {
-    @Select("select  a.*,b.name as gamename from tb_game_good a,tb_game b " +
+    @Select("select  a.*,b.name as gamename, b.id as gamekey from tb_game_good a,tb_game b " +
             " where a.gameid = b.gameid " +
             " and ( b.name like CONCAT('%',#{keyword},'%') " +
             " or a.name like   CONCAT('%',#{keyword},'%')  ) ")

@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2022-12-21
  */
 public interface GameServerDao extends BaseMapper<GameServer> {
-    @Select("select  a.*,b.name as gamename from tb_server a,tb_game b " +
+    @Select("select  a.*,b.name as gamename, b.id as gamekey from tb_server a,tb_game b " +
             " where a.gameid = b.gameid " +
             " and ( b.name like CONCAT('%',#{keyword},'%') " +
             " or a.name like   CONCAT('%',#{keyword},'%')  ) ")

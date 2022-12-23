@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class GameServerVo extends GameServer {
 
-
+    private Integer gamekey;
 
     private String gamename;
 
