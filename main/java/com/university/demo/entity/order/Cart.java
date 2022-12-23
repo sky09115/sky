@@ -32,6 +32,11 @@ public class Cart extends Model<Cart> {
      * 物品ID
      */
     private Integer iid;
+
+    private String good_name;  //商品名称
+
+    private String good_logo;  //商品的LOGO
+
     /**
      * 用户名
      */

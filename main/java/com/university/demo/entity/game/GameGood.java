@@ -26,6 +26,8 @@ public class GameGood extends Model<GameGood> {
 
     private String name;
 
+    private Double price;
+
     private Integer isall;
 
     private String customlink;
