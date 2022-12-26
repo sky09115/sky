@@ -61,8 +61,8 @@ public class OrderController extends BaseController<Order> {
     @Autowired
     private AlipayClient alipayClient;
 
-    protected String[] search_fields = new String[]{"uid", "status", "goods_name" };
-    protected String[] search_filter = new String[]{};
+    protected String[] search_fields = new String[]{"status", "goods_name" };
+    protected String[] search_filter = new String[]{"uid"};
 
     @Override
     @GetMapping("/")
