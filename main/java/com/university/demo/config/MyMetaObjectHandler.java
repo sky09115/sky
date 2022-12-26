@@ -18,8 +18,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     // 自动插入公公字段
     @Override
     public void insertFill(MetaObject metaObject) {
-        if (metaObject.hasSetter("createTime")&&getFieldValByName("createTime",metaObject)==null) {
-            setInsertFieldValByName("createTime", LocalDateTime.now(), metaObject);
+        if (metaObject.hasSetter("create_time")&&getFieldValByName("create_time",metaObject)==null) {
+            setInsertFieldValByName("create_time", LocalDateTime.now(), metaObject);
             //setInsertFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         }
     }
@@ -27,8 +27,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     // 自动更新公共字段
     @Override
     public void updateFill(MetaObject metaObject) {
-        if (metaObject.hasSetter("updateTime")&&getFieldValByName("updateTime",metaObject)==null) {
-            setUpdateFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+        if (metaObject.hasSetter("update_time")&&getFieldValByName("update_time",metaObject)==null) {
+            setUpdateFieldValByName("update_time", LocalDateTime.now(), metaObject);
         }
     }
 }
