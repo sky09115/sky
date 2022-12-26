@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CommentController extends BaseController<Comment> {
 
     protected String[] search_fields = new String[]{"title", "content", "username" };
-    protected String[] search_filter = new String[]{};
+    protected String[] search_filter = new String[]{"uid"};
 
     @Override
     @GetMapping("/")

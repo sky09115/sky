@@ -46,11 +46,11 @@ public class Comment extends Model<Comment> {
 
     @TableField(fill = FieldFill.INSERT, value="create_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     @TableField(fill = FieldFill.INSERT_UPDATE, value="update_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     @Override
     protected Serializable pkVal() {
