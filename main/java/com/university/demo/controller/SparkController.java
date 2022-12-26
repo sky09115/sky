@@ -3,6 +3,7 @@ package com.university.demo.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.university.demo.dao.UserDao;
+import com.university.demo.dao.game.GameDao;
 import com.university.demo.dao.order.OrderDao;
 import com.university.demo.entity.game.Game;
 import com.university.demo.entity.system.ServerResponse;
@@ -33,6 +34,9 @@ public class SparkController {
     LogService logService;
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    GameDao gameDao;
     @Autowired
     OrderDao orderDao;
 //    @Autowired
@@ -133,10 +137,8 @@ public class SparkController {
     public ServerResponse Dash2() {
         Map map = new HashMap();
         // 通过日志汇总
-//        map.put("deposit_rank", orderDao.getDepositRank());
-
-//        map.put("financeStages", jobDao.getProvinceFinanceStages(10));
-//        map.put("provinceJobs", jobDao.getProvinceJobs(10));
+        map.put("financeStages", gameDao.getDownloadRank());
+        map.put("provinceJobs", gameDao.getTypeDownloadRank());
 //        map.put("workYears", jobDao.getWorkYear(10));
 //        map.put("jobNatures", jobDao.getJobNature(10));
 //        map.put("workYearGroup", jobDao.getWorkYearGroup(10));
