@@ -84,5 +84,16 @@ public class UserController extends BaseController<User> {
         }
         return ServerResponse.ofError("查询失败!");
     }
+
+    @PostMapping(value = "/idconfirm")
+    @SysLog(value= SysConstant.IDCONFIRM)
+    public ServerResponse idconfirm(@RequestBody User user) {
+        User u = userService.getById(user);
+        u.setIdno(user.getIdno());
+        u.setRealname(user.getRealname());
+        userService.updateById(u);
+        // 更新密码
+        return ServerResponse.ofSuccess("认证成功");
+    }
 }
 
