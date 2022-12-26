@@ -139,12 +139,12 @@ public class SparkController {
         // 通过日志汇总
         map.put("financeStages", gameDao.getDownloadRank());
         map.put("provinceJobs", gameDao.getTypeDownloadRank());
-//        map.put("workYears", jobDao.getWorkYear(10));
-//        map.put("jobNatures", jobDao.getJobNature(10));
+        map.put("typeCount", gameDao.getTypeCount());
+        map.put("typeDownloadRank", gameDao.getTypeDownloadRank());
 //        map.put("workYearGroup", jobDao.getWorkYearGroup(10));
 //        map.put("jobNatureGroup", jobDao.getJobNatureGroup(10));
-//        map.put("industryFields", getIndustryFields());
-//        map.put("industryFields2", getIndustryFields2());
+        map.put("gameTypeCount", gameDao.getGameTypeCount());
+        map.put("gameTypeDownload", gameDao.getGameTypeDownload());
 
         return ServerResponse.ofSuccess(map);
     }
@@ -192,9 +192,9 @@ public class SparkController {
 //    }
 
     @RequestMapping(value = "/industryFields", method = RequestMethod.GET)
-    public ServerResponse IndustryFields(@RequestParam(defaultValue = "北京市") String city) throws ParseException {
+    public ServerResponse IndustryFields() throws ParseException {
         Map map = new HashMap();
-//        map.put("industryFields", weatherDao.getHistoryWeather(city));
+        map.put("industryFields", gameDao.getDownloadRank());
         return ServerResponse.ofSuccess(map);
     }
 
