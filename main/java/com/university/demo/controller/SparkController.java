@@ -150,22 +150,13 @@ public class SparkController {
     }
 
     @RequestMapping(value = "/dash3", method = RequestMethod.GET)
-    public ServerResponse Dash3(@RequestParam(defaultValue = "北京市") String city) {
+    public ServerResponse Dash3() {
         Map map = new HashMap();
         // 通过日志汇总
-//        map.put("orders", orderDao.getUserOrderRank());
-//        map.put("order2022", getOrderSumByMonth("2022"));
-//        map.put("order2021", weatherDao.getHistoryWindPowder(city));
-//        map.put("order2022", weatherDao.getHistoryPressure(city));
-//        map.put("orderCount2021", weatherDao.getHistoryWindPowder(city));
-//        map.put("orderCount2022", weatherDao.getHistoryPressure(city));
-//        map.put("guangzhou", weatherDao.getHistoryWeather("广州市"));
-//        map.put("shenzhen", weatherDao.getHistoryWeather("深圳市"));
-//        map.put("shanghai", weatherDao.getHistoryWeather("上海市"));
-
-//        map.put("cars2022", getCarsSum("2022"));
-//        map.put("tickets2022", getTicketsSumByMonth("2022"));
-//        map.put("insures2022", getInsuresSum("2022"));
+        map.put("order2021", getOrderSumByMonth("2021"));
+        map.put("order2022", getOrderSumByMonth("2022"));
+        map.put("orderCount2021", getOrderCountByMonth("2021"));
+        map.put("orderCount2022", getOrderCountByMonth("2022"));
         return ServerResponse.ofSuccess(map);
     }
 
@@ -198,15 +189,15 @@ public class SparkController {
         return ServerResponse.ofSuccess(map);
     }
 
-//    @RequestMapping(value = "/getPositionNames", method = RequestMethod.GET)
-//    public ServerResponse getPositionNames() {
-//        Map map = new HashMap();
-//        // 通过日志汇总
-//        map.put("positionNames", getPositionNameCount());
-//        map.put("users", userDao.selectCount(null));
-//
-//        return ServerResponse.ofSuccess(map);
-//    }
+    @RequestMapping(value = "/getPositionNames", method = RequestMethod.GET)
+    public ServerResponse getPositionNames() {
+        Map map = new HashMap();
+        // 通过日志汇总
+        map.put("positionNames",  gameDao.getDownloadRank());
+        map.put("users", userDao.selectCount(null));
+
+        return ServerResponse.ofSuccess(map);
+    }
 
     @RequestMapping(value = "/playcnt", method = RequestMethod.GET)
     public ServerResponse Playcnt() {
@@ -265,13 +256,13 @@ public class SparkController {
     public List<Double> getOrderSumByMonth(String year){
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-//        for (int i=0;i<months.length;i++){
-//            Double d = orderDao.getAmountByMonth(year, months[i]);
-//            if(d==null)
-//                datas.add(0.0);
-//            else
-//                datas.add(d);
-//        }
+        for (int i=0;i<months.length;i++){
+            Double d = orderDao.getAmountByMonth(year, months[i]);
+            if(d==null)
+                datas.add(0.0);
+            else
+                datas.add(d);
+        }
         return datas;
     }
 
@@ -279,11 +270,11 @@ public class SparkController {
         List<Double> datas = new ArrayList<>();
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
         for (int i=0;i<months.length;i++){
-//            Double d = orderDao.getCountByMonth(year, months[i]);
-//            if(d==null)
-//                datas.add(0.0);
-//            else
-//                datas.add(d);
+            Double d = orderDao.getCountByMonth(year, months[i]);
+            if(d==null)
+                datas.add(0.0);
+            else
+                datas.add(d);
         }
         return datas;
     }
@@ -328,42 +319,7 @@ public class SparkController {
     }
     /***********  python scripts end   ************/
 
-    public List<Double> getTicketsSumByMonth(String year){
-        List<Double> datas = new ArrayList<>();
-        String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-        for (int i=0;i<months.length;i++){
-//            Double d = orderDao.getTicketsByMonth(year, months[i]);
-//            if(d==null)
-//                datas.add(0.0);
-//            else
-//                datas.add(d);
-        }
-        return datas;
-    }
 
-    public List<Double> getInsuresSum(String year){
-        List<Double> datas = new ArrayList<>();
-        String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-        for (int i=0;i<months.length;i++){
-//            Double d = orderDao.getInsuresByMonth(year, months[i]);
-//            if(d==null)
-//                datas.add(0.0);
-//            else
-//                datas.add(d);
-        }
-        return datas;
-    }
 
-    public List<Double> getCarsSum(String year){
-        List<Double> datas = new ArrayList<>();
-        String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
-        for (int i=0;i<months.length;i++){
-//            Double d = orderDao.getCarsByMonth(year, months[i]);
-//            if(d==null)
-//                datas.add(0.0);
-//            else
-//                datas.add(d);
-        }
-        return datas;
-    }
+
 }
