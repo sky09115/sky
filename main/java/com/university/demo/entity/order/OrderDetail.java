@@ -43,10 +43,10 @@ public class OrderDetail extends Model<OrderDetail> {
     private Integer deleted;
 
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime create_time;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    private LocalDateTime update_time;
 
     @Override
     protected Serializable pkVal() {

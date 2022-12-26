@@ -4,4 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.university.demo.entity.order.Order;
 
 public interface OrderService extends IService<Order> {
+
+    void pay(Integer userId, String orderId);
+
+    void cancel(Integer userId, String orderId);
+
 }
