@@ -22,4 +22,7 @@ public interface OrderDao extends BaseMapper<Order> {
 
     @Select("select  count(1)  from  tb_order where year(create_time) = #{year} and month(create_time) = #{month} ")
     Double getCountByMonth(String year, String month);
+
+    @Select("select sum(fprice) from  tb_order")
+    Double getSum();
 }

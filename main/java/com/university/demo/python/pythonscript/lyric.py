@@ -12,17 +12,17 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Lyric(db.Model):
-    __tablename__ = 'movie_detail'  # 表名
-    douban_id = db.Column(db.Integer, primary_key=True)
-    brief_instruction = db.Column(db.TEXT)
+    __tablename__ = 'tb_comment'  # 表名
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.TEXT)
 
 def getWords2():
     records = db.session.query(Lyric).limit(5000).all()
     text = ""
     for i in records:
         # print(i.intro)  # 每一行
-        if i.brief_instruction is not None:   #需要修改词云分词的字段
-            text = text + i.brief_instruction
+        if i.content is not None:   #需要修改词云分词的字段
+            text = text + i.content
 
     word_count = dict()
     words = jieba.cut(text)

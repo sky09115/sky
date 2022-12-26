@@ -18,8 +18,8 @@ def PythonFunc2():
     text = ""
     for i in records:
         # print(i.intro)  # 每一行
-        if i.brief_instruction is not None:   #需要修改词云分词的字段
-            text = text + i.brief_instruction
+        if i.content is not None:   #需要修改词云分词的字段
+            text = text + i.content
             # print(text)
 
     result = jieba.analyse.extract_tags(text, topK=200, withWeight=True,

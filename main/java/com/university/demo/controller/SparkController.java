@@ -3,7 +3,10 @@ package com.university.demo.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.university.demo.dao.UserDao;
+import com.university.demo.dao.comment.CommentDao;
 import com.university.demo.dao.game.GameDao;
+import com.university.demo.dao.game.GameGoodDao;
+import com.university.demo.dao.game.GameServerDao;
 import com.university.demo.dao.order.OrderDao;
 import com.university.demo.entity.game.Game;
 import com.university.demo.entity.system.ServerResponse;
@@ -37,8 +40,17 @@ public class SparkController {
 
     @Autowired
     GameDao gameDao;
+
+    @Autowired
+    GameServerDao gameServerDao;
+
+    @Autowired
+    GameGoodDao gameGoodDao;
     @Autowired
     OrderDao orderDao;
+
+    @Autowired
+    CommentDao commentDao;
 //    @Autowired
 //    SparkUtils sparkUtils;
 
@@ -163,13 +175,21 @@ public class SparkController {
     @RequestMapping(value = "/dash4", method = RequestMethod.GET)
     public ServerResponse Dash4() {
         Map map = new HashMap();
-//        map.put("agents", sparkUtils.count("tb_agent"));
-//        map.put("reserves", sparkUtils.count("tb_reserve"));
-//        map.put("user", sparkUtils.count("tb_user"));
+        map.put("user", userDao.selectCount(null));
+        map.put("orders", orderDao.selectCount(null));
+        map.put("games", gameDao.selectCount(null));
+        map.put("servers", gameServerDao.selectCount(null));
+        map.put("goods", gameGoodDao.selectCount(null));
+        map.put("comments", commentDao.selectCount(null));
+
+
+        // map.put("user", sparkUtils.count("tb_user"));
 //        map.put("orders", sparkUtils.count("tb_order"));
-//        map.put("jobs", sparkUtils.count("lagou_data"));
-////        map.put("companies", jobDao.getDistinctCompanyNames());
-//        map.put("resumes", sparkUtils.count("tb_resume"));
+//        map.put("games", sparkUtils.count("tb_game"));
+//        map.put("servers", sparkUtils.count("tb_server"));
+//        map.put("goods", sparkUtils.count("tb_game_good"));
+        map.put("ordersum", orderDao.getSum());
+//        map.put("comments", sparkUtils.count("tb_comment"));
 
         return ServerResponse.ofSuccess(map);
     }
@@ -315,6 +335,17 @@ public class SparkController {
         }
 
         map.put("rec",dataList);
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/wordcloud", method = RequestMethod.GET)
+    public ServerResponse testPython() throws ParseException {
+        Map map = new HashMap();
+        //调用python脚本
+        String content = toPython.wordcloud2(" ");
+        //转为json数据
+        JSONObject jo = JSONObject.parseObject(content);
+        map.put("wordcloud",jo);
         return ServerResponse.ofSuccess(map);
     }
     /***********  python scripts end   ************/
