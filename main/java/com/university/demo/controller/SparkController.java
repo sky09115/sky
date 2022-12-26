@@ -2,10 +2,14 @@ package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.university.demo.dao.UserDao;
+import com.university.demo.dao.order.OrderDao;
 import com.university.demo.entity.game.Game;
 import com.university.demo.entity.system.ServerResponse;
+import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
 
+import com.university.demo.service.LogService;
 import com.university.demo.service.game.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +29,12 @@ import java.util.Map;
 public class SparkController {
 
 
-//    @Autowired
-//    WeatherDao weatherDao;
-
-
+    @Autowired
+    LogService logService;
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    OrderDao orderDao;
 //    @Autowired
 //    SparkUtils sparkUtils;
 
@@ -37,17 +43,23 @@ public class SparkController {
 
     @Autowired
     ToPython toPython;
+
+    /**
+     *  spark 大屏 page1
+     */
+
     /**
      * 大屏数据-统计值
      * @return
      */
     @RequestMapping(value = "/dash1", method = RequestMethod.GET)
-    public ServerResponse Dash1(@RequestParam(defaultValue = "北京市") String city) {
+    public ServerResponse Dash1() {
         Map map = new HashMap();
 //        System.out.println(orderDao.selectCount(null));
 //        System.out.println( userDao.selectCount(null)*1.0);
 
-
+        map.put("deposit_rank", orderDao.getPay());
+        map.put("province_users", userDao.getUserProvince());
 //        map.put("users", userDao.getUsersCount());
 //        map.put("orders", orderDao.selectCount(null));
 //        map.put("shops", sparkUtils.count("bcat_list"));
@@ -78,6 +90,17 @@ public class SparkController {
 //        map.put("plays", sparkUtils.countLog("tb_thumb"));
 //        map.put("app_plays", sparkUtils.countLog("app_reserve"));
 //        map.put("idconfirm", sparkUtils.countLog("idconfirm"));
+
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/logins", method = RequestMethod.GET)
+    public ServerResponse Logins() throws ParseException {
+        Map map = new HashMap();
+//        map.put("logins", weatherDao.getHistoryHumidity(city));
+        map.put("xData",logService.chartDay(SysConstant.LOGIN));
+        map.put("logins",logService.chartCount(SysConstant.LOGIN));
+//        map.put("applogins",logService.chartCount(SysConstant.APP_LOGIN));
 
         return ServerResponse.ofSuccess(map);
     }
@@ -210,17 +233,7 @@ public class SparkController {
         return ServerResponse.ofSuccess(map);
     }
 
-    @RequestMapping(value = "/logins", method = RequestMethod.GET)
-    public ServerResponse Logins(@RequestParam(defaultValue = "北京市") String city) throws ParseException {
-        Map map = new HashMap();
-//        map.put("logins", weatherDao.getHistoryHumidity(city));
 
-//        map.put("xData",logService.chartDay(SysConstant.LOGIN));
-//        map.put("logins",logService.chartCount(SysConstant.LOGIN));
-//        map.put("applogins",logService.chartCount(SysConstant.APP_LOGIN));
-
-        return ServerResponse.ofSuccess(map);
-    }
 
     @RequestMapping(value = "/plays", method = RequestMethod.GET)
     public ServerResponse Plays() throws ParseException {
