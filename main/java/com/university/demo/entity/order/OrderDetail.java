@@ -29,7 +29,7 @@ public class OrderDetail extends Model<OrderDetail> {
 
     private String goods_logo;
 
-    private Double amount;
+    private Integer amount;
 
     private Double price;
 
