@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.university.demo.dao.LogDao;
 import com.university.demo.dao.VisDao;
-import com.university.demo.dao.movie2.MovieReviewsDao;
 import com.university.demo.entity.Log;
-import com.university.demo.entity.movie2.MovieReviews;
 import com.university.demo.entity.response.ChartData;
 import com.university.demo.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,7 @@ public class LogServiceImpl extends ServiceImpl<LogDao, Log> implements LogServi
     @Autowired
     VisDao visDao;
 
-    @Autowired
-    MovieReviewsDao movieReviewsDao;
+
 
     @Override
     public List<Integer> chartCount(String  opt) throws ParseException {
@@ -32,24 +29,23 @@ public class LogServiceImpl extends ServiceImpl<LogDao, Log> implements LogServi
         for(String _day : days){
             QueryWrapper<Log> query = new QueryWrapper<>();
             query.like("create_time",_day);
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
-//            query.setCreateTime(simpleDateFormat.parse(_day));
+//
             values.add(baseMapper.selectCount(query));
         }
         return values;
     }
 
-    @Override
-    public List<Integer> reviewCount() throws ParseException {
-        List<Integer> values = new ArrayList<>();
-        List<String> days = visDao.review_day();
-        for(String _day : days){
-            QueryWrapper<MovieReviews> query = new QueryWrapper<>();
-            query.like("user_movie_rating_time",_day);
-            values.add(movieReviewsDao.selectCount(query));
-        }
-        return values;
-    }
+//    @Override
+//    public List<Integer> reviewCount() throws ParseException {
+//        List<Integer> values = new ArrayList<>();
+//        List<String> days = visDao.review_day();
+//        for(String _day : days){
+//            QueryWrapper<MovieReviews> query = new QueryWrapper<>();
+//            query.like("user_movie_rating_time",_day);
+//            values.add(movieReviewsDao.selectCount(query));
+//        }
+//        return values;
+//    }
 
     @Override
     public List<String> chartDay(String opt) throws ParseException {

@@ -10,7 +10,7 @@ import java.util.List;
 public interface LogService extends IService<Log> {
     List<Integer> chartCount(String opt) throws ParseException;
 
-    List<Integer> reviewCount() throws ParseException;
+//    List<Integer> reviewCount() throws ParseException;
 
     List<String> chartDay(String opt) throws ParseException;
 

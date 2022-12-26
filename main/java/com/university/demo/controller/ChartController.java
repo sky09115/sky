@@ -13,11 +13,7 @@ import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
 import com.university.demo.service.game.GameServerService;
 import com.university.demo.service.game.GameService;
-import com.university.demo.service.movie2.MovieDetailService;
-import com.university.demo.service.movie2.MovieReviewsService;
-import com.university.demo.service.movie2.MovieUserRatingsService;
-import com.university.demo.service.movie2.MovieUserService;
-import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,11 +35,7 @@ public class ChartController {
     @Autowired
     private LogService logService;
 
-    @Autowired
-    private MovieDetailService movieDetailService;
 
-    @Autowired
-    private MovieUserRatingsService movieUserRatingsService;
     @Autowired
     private GameService gameService;
     @Autowired
@@ -99,10 +91,10 @@ public class ChartController {
     @GetMapping("/get11")
     public ServerResponse get11() throws ParseException {
         Map map = new HashMap();
-        map.put("onlineNum",movieDetailService.count(null));
+//        map.put("onlineNum",movieDetailService.count(null));
 //        map.put("totalNum",movieUserService.count(null));
 //        map.put("offlineNum",movieReviewsService.count(null));
-        map.put("alarmNum",movieUserRatingsService.count(null));
+//        map.put("alarmNum",movieUserRatingsService.count(null));
         return ServerResponse.ofSuccess(map);
     }
     @GetMapping("/get12")
@@ -116,7 +108,7 @@ public class ChartController {
     public ServerResponse get13() throws ParseException {
         Map map = new HashMap();
         map.put("dateList",visDao.review_day());
-        map.put("numList",logService.reviewCount());
+//        map.put("numList",logService.reviewCount());
         return ServerResponse.ofSuccess(map);
     }
 
