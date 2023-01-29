@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@TableName("tb_game")
+@TableName("tb_info")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

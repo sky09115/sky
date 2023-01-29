@@ -11,9 +11,9 @@ import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
 import com.university.demo.service.LogService;
 import com.university.demo.service.UserService;
-import com.university.demo.service.game.GameServerService;
-import com.university.demo.service.game.GameService;
 
+import com.university.demo.service.traffic.InfoService;
+import com.university.demo.service.traffic.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +37,9 @@ public class ChartController {
 
 
     @Autowired
-    private GameService gameService;
+    private InfoService infoService;
     @Autowired
-    private GameServerService gameServerService;
+    private RoadService roadService;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -52,8 +52,8 @@ public class ChartController {
         Map map = new HashMap();
         map.put("users", userService.count());
         map.put("logs", logService.count());
-        map.put("three", gameService.count());
-        map.put("four", gameServerService.count());
+        map.put("three", infoService.count());
+        map.put("four", roadService.count());
         return ServerResponse.ofSuccess(map);
     }
 
