@@ -26,6 +26,23 @@ public interface VisDao extends BaseMapper<User> {
             "  (select b.qs, a.*  from  tb_road a, tb_info b " +
             " where a.blockid = b.id) x group by qs order by value desc ")
     List<ChartData> dashMap();
+
+    @Select("   select lm as name, avg(exponent) as value from " +
+            "  (select b.lm, a.*  from  tb_road a, tb_info b " +
+            " where a.blockid = b.id) x group by lm order by value desc ")
+    List<ChartData> dash1();
+
+    @Select("   select  period as name ,avg(exponent) as value from tb_road " +
+            "where period>=72 and period <=96 " +
+            "group by period " +
+            "order by period asc ")
+    List<ChartData> dash2();
+
+    @Select("   select lm as name, sum(exponent) as value from " +
+            "  (select b.lm, a.*  from  tb_road a, tb_info b " +
+            " where a.blockid = b.id) x group by lm order by value desc ")
+    List<ChartData> dash3();
+
     @Select("  select lm as name, avg(speed) as value from  " +
             "  (select b.lm, a.*  from  tb_road a, tb_info b " +
             " where a.blockid = b.id) x group by lm order by value desc ")

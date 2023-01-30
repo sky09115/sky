@@ -42,6 +42,27 @@ public class VisualizationController {
         return ServerResponse.ofSuccess(map);
     }
 
+    @RequestMapping(value = "/dash1", method = RequestMethod.GET)
+    public ServerResponse dash1() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash1());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/dash2", method = RequestMethod.GET)
+    public ServerResponse dash2() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash2());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/dash3", method = RequestMethod.GET)
+    public ServerResponse dash3() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash3());
+        return ServerResponse.ofSuccess(map);
+    }
+
     @RequestMapping(value = "/dash4", method = RequestMethod.GET)
     public ServerResponse dash4() throws ParseException {
         Map map = new HashMap();
