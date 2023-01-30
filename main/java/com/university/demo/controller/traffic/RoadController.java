@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.controller.base.BaseController;
 import com.university.demo.controller.base.MyWrapper;
+import com.university.demo.dao.traffic.RoadDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.traffic.Road;
+import com.university.demo.entity.traffic.RoadVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/road")
 public class RoadController extends BaseController<Road> {
+    @Autowired
+    RoadDao dao;
 
     protected String[] search_fields = new String[]{"lm" };
     protected String[] search_filter = new String[]{};
@@ -38,6 +43,17 @@ public class RoadController extends BaseController<Road> {
         MyWrapper<Road> wrapperFactory = new MyWrapper<>();
         QueryWrapper<Road> wrapper = wrapperFactory.init(request, search, search_fields, search_filter);
         IPage<Road> iPage = baseSerivce.page(pages, wrapper);
+        return ServerResponse.ofSuccess(iPage);
+    }
+
+    @GetMapping("/list2")
+    public ServerResponse list2(HttpServletRequest request,
+                                @RequestParam(defaultValue = "") String search,
+                                @RequestParam(defaultValue = "1") Integer page,
+                                @RequestParam(defaultValue = "15") Integer limit
+    ) {
+        Page<RoadVo> pages = new Page<>(page, limit);
+        IPage<RoadVo> iPage = pages.setRecords(dao.select(pages, search));
         return ServerResponse.ofSuccess(iPage);
     }
 }
