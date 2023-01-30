@@ -17,14 +17,28 @@ import java.util.List;
  */
 public interface VisDao extends BaseMapper<User> {
 
+    @Select("  select count(1) from tb_info ")
+    Integer dash00();
 
-    @Select(" select substr(title,1,10) as name, rating_score as value " +
-            " from  movie_detail order by rating_score desc limit 10 ")
-    List<ChartData> get23();
+    @Select("  select count(1) from tb_road ")
+    Integer dash01();
+    @Select("   select qs as name, avg(exponent) as value from  " +
+            "  (select b.qs, a.*  from  tb_road a, tb_info b " +
+            " where a.blockid = b.id) x group by qs order by value desc ")
+    List<ChartData> dashMap();
+    @Select("  select lm as name, avg(speed) as value from  " +
+            "  (select b.lm, a.*  from  tb_road a, tb_info b " +
+            " where a.blockid = b.id) x group by lm order by value desc ")
+    List<ChartData> dash4();
 
-    @Select(" select title as name, rating_score as value " +
-            " from  movie_detail order by rating_score desc limit 10 ")
-    List<ChartData> get31();
+    @Select("  select lm as name, avg(gotime) as value from  " +
+            "  (select b.lm, a.*  from  tb_road a, tb_info b " +
+            " where a.blockid = b.id) x group by lm order by value desc " +
+            "  ")
+    List<ChartData> dash5();
+
+    @Select("  select  qs as name, count(1) as value  from  tb_info group by qs ")
+    List<ChartData> dash6();
 
     @Select(" select title as name, rating_score as value " +
             " from  movie_detail order by rating_score desc limit 10 ")

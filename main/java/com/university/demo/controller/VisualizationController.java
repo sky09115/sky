@@ -3,11 +3,14 @@ package com.university.demo.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.university.demo.dao.VisDao;
 import com.university.demo.entity.system.ServerResponse;
+import com.university.demo.entity.system.SysConstant;
 import com.university.demo.python.TransferPython.ToPython;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author tesla
@@ -25,8 +28,38 @@ public class VisualizationController {
     ToPython toPython;
 
     // 主页面板     ***************************
+    @RequestMapping(value = "/dashMap", method = RequestMethod.GET)
+    public ServerResponse dashMap() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dashMap());
+        return ServerResponse.ofSuccess(map);
+    }
+    @RequestMapping(value = "/dash0", method = RequestMethod.GET)
+    public ServerResponse dash0() throws ParseException {
+        Map map = new HashMap();
+        map.put("data1",dao.dash00());
+        map.put("data2",dao.dash01());
+        return ServerResponse.ofSuccess(map);
+    }
 
-
+    @RequestMapping(value = "/dash4", method = RequestMethod.GET)
+    public ServerResponse dash4() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash4());
+        return ServerResponse.ofSuccess(map);
+    }
+    @RequestMapping(value = "/dash5", method = RequestMethod.GET)
+    public ServerResponse dash5() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash5());
+        return ServerResponse.ofSuccess(map);
+    }
+    @RequestMapping(value = "/dash6", method = RequestMethod.GET)
+    public ServerResponse dash6() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.dash6());
+        return ServerResponse.ofSuccess(map);
+    }
     // 可视化分析1  ****************************
     // 词云        ****************************
 

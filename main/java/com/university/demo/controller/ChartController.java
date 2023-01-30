@@ -112,12 +112,7 @@ public class ChartController {
         return ServerResponse.ofSuccess(map);
     }
 
-    @GetMapping("/get23")
-    public ServerResponse get23() throws ParseException {
-        Map map = new HashMap();
-        map.put("data",visDao.get23());
-        return ServerResponse.ofSuccess(map);
-    }
+
 
     @RequestMapping(value = "/get31", method = RequestMethod.GET)
     public ServerResponse get31() throws ParseException {
