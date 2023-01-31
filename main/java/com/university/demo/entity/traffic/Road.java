@@ -32,4 +32,6 @@ public class Road extends Model<Road> {
     private Double gotime;  //通过样本总行程时间(s)
 
     private Double exponent; //交通指数0-2为畅通，2-4为基本畅通，4-6为缓行，6-8为较拥堵，8-10为拥堵
+
+    private Integer flow;
 }
