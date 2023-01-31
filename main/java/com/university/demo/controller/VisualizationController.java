@@ -1,10 +1,13 @@
 package com.university.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.university.demo.dao.VisDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.system.SysConstant;
+import com.university.demo.entity.traffic.Info;
 import com.university.demo.python.TransferPython.ToPython;
+import com.university.demo.service.traffic.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,9 @@ public class VisualizationController {
 
     @Autowired
     private VisDao dao;
+
+    @Autowired
+    private InfoService infoService;
 
     @Autowired
     ToPython toPython;
@@ -81,13 +87,15 @@ public class VisualizationController {
         map.put("data",dao.dash6());
         return ServerResponse.ofSuccess(map);
     }
-    // 可视化分析1  ****************************
-    // 词云        ****************************
 
-    @RequestMapping(value = "/get51", method = RequestMethod.GET)
-    public ServerResponse get51() throws ParseException {
+    @RequestMapping(value = "/predict", method = RequestMethod.GET)
+    public ServerResponse predict(@RequestParam(defaultValue = "") String lm) throws ParseException {
+        QueryWrapper<Info> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("lm", lm);
+        Info i = infoService.list(queryWrapper).get(0);
+        String blockid = i.getId();
         //调用python脚本
-        String content = toPython.wordcloud(" ");
+        String content = toPython.wordcloud(blockid);
         //转为json数据
         JSONObject jo = JSONObject.parseObject(content);
         return ServerResponse.ofSuccess(jo);

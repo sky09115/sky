@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.university.demo.controller.base.BaseController;
 import com.university.demo.controller.base.MyWrapper;
+import com.university.demo.dao.traffic.InfoDao;
 import com.university.demo.entity.system.ServerResponse;
 import com.university.demo.entity.traffic.Info;
+import com.university.demo.entity.traffic.RoadVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,9 @@ public class InfoController extends BaseController<Info> {
     protected String[] search_fields = new String[]{"lm" };
     protected String[] search_filter = new String[]{};
 
+    @Autowired
+    InfoDao dao;
+
     @Override
     @GetMapping("/")
     public ServerResponse list(HttpServletRequest request,
@@ -38,6 +44,17 @@ public class InfoController extends BaseController<Info> {
         MyWrapper<Info> wrapperFactory = new MyWrapper<>();
         QueryWrapper<Info> wrapper = wrapperFactory.init(request, search, search_fields, search_filter);
         IPage<Info> iPage = baseSerivce.page(pages, wrapper);
+        return ServerResponse.ofSuccess(iPage);
+    }
+
+    @GetMapping("/list2")
+    public ServerResponse list2(HttpServletRequest request,
+                               @RequestParam(defaultValue = "") String search,
+                               @RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "15") Integer limit
+    ) {
+        Page<Info> pages = new Page<>(page, limit);
+        IPage<Info> iPage = pages.setRecords(dao.select(pages, search));
         return ServerResponse.ofSuccess(iPage);
     }
 }
