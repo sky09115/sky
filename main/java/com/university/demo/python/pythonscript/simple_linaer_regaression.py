@@ -41,23 +41,17 @@ def linaer_regression_predict(p1, p2, n):
 
 if __name__ == '__main__':
     # blockid = 69
-    blockid = sys.argv[1]
-
-    sql0 = "select max(time1) from tb_road where blockid='%s'" % blockid
-    tt = session.execute(sql0)
-    cur = tt.fetchall()
-    for c in cur:
-        time1 = c[0]
-
-    sql = "select period, flow  from  tb_road where time1 like '%s%%' " \
-          "and blockid='%s' order by period asc " % (time1, blockid)
+    # blockid = sys.argv[1]
+    sql = "select id, flow, first_time  from  tb_flow2 limit 40 "
     x = []
     w = []
+    f = []
     tt = session.execute(sql)
     cur = tt.fetchall()
     for c in cur:
         x.append(c[0])
         w.append(c[1])
+        f.append(c[2])
     print(x)
     print(w)
     # print(cur)
@@ -67,16 +61,18 @@ if __name__ == '__main__':
     w2 = linaer_regression_predict(x, w, m+1)
     w3 = linaer_regression_predict(x, w, m+2)
     w4 = linaer_regression_predict(x, w, m+3)
-
+    f.append('预测1')
+    f.append('预测2')
+    f.append('预测3')
     x.append(m+1)
     x.append(m+2)
     x.append(m+3)
 
     r = []
-    w.append(int(w2))
-    w.append(int(w3))
-    w.append(int(w4))
-    ret = dict(v=w, x=x)
+    w.append(abs(int(w2)))
+    w.append(abs(int(w3)))
+    w.append(abs(int(w4)))
+    ret = dict(v=w, x=x, f=f)
     # print(r)
     # print(int(w2))
     # print(int(w3))

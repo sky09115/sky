@@ -47,7 +47,7 @@ file:
 
 config:
   #  pythonscript
-  python-script-path: /Volumes/tesla/code/rua/2023-traffic/traffic_server/src/main/java/com/university/demo/python/pythonscript/
+  python-script-path:  /Volumes/tesla/code/rua/2023-metro/metro_server/src/main/java/com/university/demo/python/pythonscript/
   #  python3
   python-order: /Users/teslatk/.conda/envs/Belt-Flask/bin/python
   # utf-8

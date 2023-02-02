@@ -34,10 +34,24 @@ public class VisualizationController {
     ToPython toPython;
 
     // 主页面板     ***************************
-    @RequestMapping(value = "/dashMap", method = RequestMethod.GET)
-    public ServerResponse dashMap() throws ParseException {
+    @RequestMapping(value = "/chart1", method = RequestMethod.GET)
+    public ServerResponse chart1() throws ParseException {
         Map map = new HashMap();
-        map.put("data",dao.dashMap());
+        map.put("data",dao.chart1());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/chart2", method = RequestMethod.GET)
+    public ServerResponse chart2() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.chart2());
+        return ServerResponse.ofSuccess(map);
+    }
+
+    @RequestMapping(value = "/chart3", method = RequestMethod.GET)
+    public ServerResponse chart3() throws ParseException {
+        Map map = new HashMap();
+        map.put("data",dao.chart3());
         return ServerResponse.ofSuccess(map);
     }
     @RequestMapping(value = "/dash0", method = RequestMethod.GET)
@@ -90,12 +104,8 @@ public class VisualizationController {
 
     @RequestMapping(value = "/predict", method = RequestMethod.GET)
     public ServerResponse predict(@RequestParam(defaultValue = "") String lm) throws ParseException {
-        QueryWrapper<Info> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("lm", lm);
-        Info i = infoService.list(queryWrapper).get(0);
-        String blockid = i.getId();
         //调用python脚本
-        String content = toPython.wordcloud(blockid);
+        String content = toPython.wordcloud("");
         //转为json数据
         JSONObject jo = JSONObject.parseObject(content);
         return ServerResponse.ofSuccess(jo);

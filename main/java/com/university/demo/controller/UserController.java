@@ -71,6 +71,19 @@ public class UserController extends BaseController<User> {
         return ServerResponse.ofError("用户名或密码错误!");
     }
 
+    @PostMapping("/register")
+    public ServerResponse register(@RequestBody User loginForm) throws Exception{
+        Map<String, Object> map = new HashMap();
+        User user = userService.login(loginForm.getUsername(), loginForm.getPassword());
+        if (user != null){
+            return ServerResponse.ofError("用户已存在!");
+        }else{
+            userService.save(loginForm);
+            return ServerResponse.ofSuccess("注册成功!");
+        }
+
+    }
+
     // element端是会拦截请求并且通过token来获取用户的info
     @GetMapping("/info")
     public ServerResponse info(HttpServletRequest request) {
