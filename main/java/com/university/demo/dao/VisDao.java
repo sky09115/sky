@@ -17,10 +17,10 @@ import java.util.List;
  */
 public interface VisDao extends BaseMapper<User> {
 
-    @Select("  select count(1) from tb_info ")
+    @Select("  select count(1) from tb_metro ")
     Integer dash00();
 
-    @Select("  select count(1) from tb_road ")
+    @Select("  select sum(flow) from tb_flow ")
     Integer dash01();
     @Select("   select qs as name, avg(exponent) as value from  " +
             "  (select b.qs, a.*  from  tb_road a, tb_info b " +

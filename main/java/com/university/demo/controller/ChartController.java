@@ -35,7 +35,6 @@ public class ChartController {
     @Autowired
     private LogService logService;
 
-
     @Autowired
     private InfoService infoService;
     @Autowired
@@ -52,8 +51,8 @@ public class ChartController {
         Map map = new HashMap();
         map.put("users", userService.count());
         map.put("logs", logService.count());
-        map.put("three", infoService.count());
-        map.put("four", roadService.count());
+        map.put("three", visDao.dash01());
+        map.put("four", visDao.dash00());
         return ServerResponse.ofSuccess(map);
     }
 
