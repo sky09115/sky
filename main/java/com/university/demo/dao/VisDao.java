@@ -22,6 +22,11 @@ public interface VisDao extends BaseMapper<User> {
 
     @Select("  select sum(flow) from tb_flow ")
     Integer dash01();
+
+
+    @Select("  select count(distinct line_code) from tb_flow ")
+    Integer dash02();
+
     @Select(" select  concat (first_time, '-',last_time) as name , flow as value  from  tb_flow2 order by flow desc limit 10  ")
     List<ChartData> chart1();
 
@@ -29,7 +34,7 @@ public interface VisDao extends BaseMapper<User> {
             " where xl ='是' order by flow desc limit 10  ")
     List<ChartData> chart2();
 
-    @Select(" select m.name, f.flow as value from  tb_flow f, tb_metro m where m.code = f.site_code and xl ='是' order by flow desc limit 10;  ")
+    @Select(" select m.name, f.flow as value from  tb_flow f, tb_metro m where m.code = f.site_code and xl ='是' order by flow desc limit 100;  ")
     List<ChartData> chart3();
 
     @Select("   select lm as name, avg(exponent) as value from " +

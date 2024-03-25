@@ -126,11 +126,6 @@ public class ChartController {
     @GetMapping("/get32")
     public ServerResponse get32() throws ParseException {
         Map map = new HashMap();
-        String[] category = {"美国", "中国大陆","中国香港", "日本", "法国", "英国", "韩国", "德国"};
-        map.put("category", category);
-//        map.put("barData", movieReviewsService.getRate1(category));
-//        map.put("lineData", movieReviewsService.getRateNum(category));
-//        map.put("rateData", movieReviewsService.getRate5Star(category));
         return ServerResponse.ofSuccess(map);
     }
 }

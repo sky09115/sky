@@ -59,6 +59,7 @@ public class VisualizationController {
         Map map = new HashMap();
         map.put("data1",dao.dash00());
         map.put("data2",dao.dash01());
+        map.put("data3",dao.dash02());
         return ServerResponse.ofSuccess(map);
     }
 

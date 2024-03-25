@@ -6,12 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-/**
- * @author: 15760
- * @Date: 2020/3/4
- * @Descripe: MybatisPlus配置类
- */
-
 @Configuration
 @MapperScan("com.university.demo.dao")
 public class MybatisPlusConfig {

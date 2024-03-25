@@ -12,9 +12,9 @@ import java.util.Properties;
 
 public class LoadDB implements Serializable {
 
-    private final String DB_URL = "jdbc:mysql://localhost:3306/11food?serverTimezone=Asia/Shanghai";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/metro?serverTimezone=Asia/Shanghai";
     private final String DB_USERNAME = "root";
-    private final String DB_PASSWORD = "123456";
+    private final String DB_PASSWORD = "Lvsg9410267963";
 
     private SparkConf sparkConf;
     private JavaSparkContext javaSparkContext;

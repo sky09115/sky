@@ -1,12 +1,20 @@
 # 数据库连接
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/metro?&serverTimezone=UTC&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    username: root
+#    password: Lvsg9410267963
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/metro?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    #password: Duanlede123!
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:hive2://192.168.44.128:10000/szt
+    username: hive
+    password:
+    driver-class-name: org.apache.hive.jdbc.HiveDriver
+
+
   # 返回json的全局时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -42,13 +50,13 @@ server:
   port: 8080
 
 file:
-  upload-dir: /Volumes/tesla/upload  #
+  upload-dir: G:/upload  #
   # FileController 中有个路径也要改成gonghui，就可以对应上
 
 config:
   #  pythonscript
-  python-script-path:  /Volumes/tesla/code/rua/2023-metro/metro_server/src/main/java/com/university/demo/python/pythonscript/
+  python-script-path:  E:/论文/地铁分析源码2024/metro_server/src/main/java/com/university/demo/python/pythonscript/
   #  python3
-  python-order: /Users/teslatk/.conda/envs/Belt-Flask/bin/python
+  python-order: python
   # utf-8
-  charset-name: utf-8
+  charset-name: gbk

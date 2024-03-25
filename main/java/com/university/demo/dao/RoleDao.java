@@ -7,9 +7,6 @@ import com.university.demo.entity.Role;
  * <p>
  *  Mapper 接口
  * </p>
- *
- * @author redcomet
- * @since  04-17
  */
 public interface RoleDao extends BaseMapper<Role> {
 

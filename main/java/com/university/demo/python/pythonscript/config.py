@@ -8,7 +8,7 @@ user = 'root'
 password = '123456'
 port = 3306
 
-database = '11food'
+database = 'metro'
 
 cnn = pymysql.connect(host=host, user=user, password=password, port=port, database=database,
                       charset='utf8')

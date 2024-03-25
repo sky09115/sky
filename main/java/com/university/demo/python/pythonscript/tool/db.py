@@ -8,7 +8,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DB_URI ='mysql+pymysql://root:12345678@localhost/metro'
+DB_URI ='mysql+pymysql://root:Lvsg9410267963@localhost/metro'
 
 engine = create_engine(DB_URI)
 Base = declarative_base(engine)  # SQLORM基类
